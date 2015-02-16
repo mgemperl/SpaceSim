@@ -234,7 +234,7 @@ void WeaponSlot::FireDumb()
 	}
 }
 
-/*
+/* Need to bring in the guided projectile implementation from the old engine
 void WeaponSlot::FireGuided()
 {
 	if (m_WeaponInstalled && (m_TicksUntilReload <= 0))
