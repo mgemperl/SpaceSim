@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Drawable.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SpaceSim.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="WinMain.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Point2D.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2D.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageDispatcher.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Universe.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Fleet.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Sector.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CelestialBody.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="System.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Moveable.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Vessel.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ShipAI.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="AIState.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="AIShipManeuverStates.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="AIShipOrderStates.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TurretStates.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponSlot.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="VesselController.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Data.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameException.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SpaceSim.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Point2D.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2D.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityManager.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageDispatcher.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Universe.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Fleet.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sector.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CelestialBody.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Moveable.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Vessel.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ShipAI.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="AIState.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="AIShipManeuverStates.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="AIShipOrderStates.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="TurretStates.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponSlot.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="VesselController.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{7955dc7d-c2c9-4cfc-9ca9-fda223e7579d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{eda0e188-a240-4336-99c6-79b3bb864b27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Textures">
+      <UniqueIdentifier>{8d44be1e-fd18-48ff-b917-29e35b4bb990}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{8fb93fce-d92a-4a57-b16e-67a5c8308388}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\Hammerhead.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\Arrakis (Second Variant).png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\nebula_01.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\nebula_02.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\nebula_03.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\nebula_04.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\nebula_05.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\planet_01.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\planet_02.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\planet_02_alpha.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\Happy_smiley_face.ico">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Textures\planet_02_alpha.ico">
+      <Filter>Resources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SpaceSim.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
