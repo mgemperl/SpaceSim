@@ -60,6 +60,12 @@ void SpaceSim::Initialize(HWND hwnd)
 			"Error initializing gun texture");
 	}
 
+	if (!TextureManager::Initialize(m_pGraphics, "Textures/missile.png", "missile"))
+	{
+		throw GameException(GameExceptionNS::FATAL_ERROR,
+			"Error initializing missile texture");
+	}
+
 	m_pUniverse->Initialize(m_pGraphics, m_pInput);
 
 	/*

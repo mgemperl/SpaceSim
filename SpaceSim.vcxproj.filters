@@ -91,6 +91,8 @@
     <ClCompile Include="Background.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="GuidanceStates.cpp" />
+    <ClCompile Include="GuidedProjectile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Data.h">
@@ -198,6 +200,8 @@
     <ClInclude Include="resource.h">
       <Filter>Resources</Filter>
     </ClInclude>
+    <ClInclude Include="GuidanceStates.h" />
+    <ClInclude Include="GuidedProjectile.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
