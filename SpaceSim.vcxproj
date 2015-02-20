@@ -95,7 +95,9 @@
     <ClInclude Include="AIState.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="CelestialBody.h" />
+    <ClInclude Include="CollisionPolygon.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="Damager.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="Entity.h" />
@@ -134,6 +136,8 @@
     <ClCompile Include="AIState.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="CelestialBody.cpp" />
+    <ClCompile Include="CollisionPolygon.cpp" />
+    <ClCompile Include="Damager.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
@@ -145,7 +149,6 @@
     <ClCompile Include="MessageDispatcher.cpp" />
     <ClCompile Include="Moveable.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Point2D.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Sector.cpp" />
     <ClCompile Include="ShipAI.cpp" />

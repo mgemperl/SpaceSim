@@ -22,9 +22,6 @@
     <ClCompile Include="WinMain.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Point2D.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Vector2D.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -93,6 +90,8 @@
     </ClCompile>
     <ClCompile Include="GuidanceStates.cpp" />
     <ClCompile Include="GuidedProjectile.cpp" />
+    <ClCompile Include="Damager.cpp" />
+    <ClCompile Include="CollisionPolygon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Data.h">
@@ -202,6 +201,8 @@
     </ClInclude>
     <ClInclude Include="GuidanceStates.h" />
     <ClInclude Include="GuidedProjectile.h" />
+    <ClInclude Include="Damager.h" />
+    <ClInclude Include="CollisionPolygon.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />

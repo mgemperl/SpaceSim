@@ -75,7 +75,10 @@ public:
 	 * Accessor method for the terminal point of the vector.
 	 * @returns the terminal point of the vector
 	 */
-	Point2D<double> GetTerminal() const;
+	inline Point2D<double> GetTerminal() const
+	{
+		return Point2D<double>(terminal);
+	}
 
 	/**
 	* This method returns the terminal point of the vector offset by
@@ -83,13 +86,19 @@ public:
 	* @param initial  Point representing the offset
 	* @return         the terminal point
 	*/
-	Point2D<double> GetTerminal(const Point2D<double>& initial) const;
+	inline Point2D<double> GetTerminal(const Point2D<double>& initial) const
+	{
+		return (terminal + initial);
+	}
 
 	/**
 	 * Accessor method for the angle of the vector in radians
 	 * @returns angle of the vector in radians
 	 */
-	double GetAngle() const;
+	inline double GetAngle() const
+	{
+		return angle;
+	}
 
 	/**
 	 * Accessor method for the magnitude of this vector. This operation requires a square root
@@ -118,14 +127,20 @@ public:
 	 * Method that rotates the vector by the argued number of radians.
 	 * @param dTheta  the number of radians by which to rotate the vector
 	 */
-	void rotate(double dTheta);
+	inline void rotate(double dTheta)
+	{
+		setAngle(angle + dTheta);
+	}
 
 	/**
 	 * Method that rotates the vector to the argued angle in radians.
 	 *
 	 * @param dTheta  the number of radians by which to rotate the angle
 	 */
-	void rotateTo(double theta);
+	inline void rotateTo(double theta)
+	{
+		setAngle(theta);
+	}
 
 	/**
 	 * Method that scales the vector by the argued value.
@@ -142,13 +157,28 @@ public:
 	/**
 	 * Method that normalizes the vector.
 	 */
-	void normalize();
+	inline void normalize()
+	{
+		scaleTo(1);
+	}
 
 	/**
 	 * Method that returns the normal of this vector.
 	 * @returns the normal of this vector
 	 */
-	Vector2D normal() const;
+	inline Vector2D normal() const
+	{
+		return Vector2D(angle, 1);
+	}
+
+	/**
+	*  Returns a vector perpendicular to this one.
+	*/
+	inline Vector2D Perpendicular() const
+	{
+		return Vector2D(angle + HALF_PI, magnitude);
+	}
+	
 
 	/**
 	 * Method that returns the cartesian point represented by the argued
@@ -157,7 +187,13 @@ public:
 	 * @param mag    the radial coordinate of the polar point
 	 * @returns      the cartesian point represented by the argued polar coordinates
 	 */
-	static Point2D<double> GetTerminalFromPolar(double theta, double mag);
+	inline static Point2D<double> GetTerminalFromPolar(double theta, double mag)
+	{
+		return Point2D<double>(
+			mag * std::cos(theta),
+			mag * std::sin(theta)
+			);
+	}
 
 	/**
 	* Method that returns a random point within the argued distance
@@ -182,8 +218,12 @@ public:
 	 * @param term  the second point
 	 * @returns     the angle from the first point to the second point
 	 */
-	static double ComputeAngle(const Point2D<double>& init,
-		const Point2D<double>& term);
+	inline static double ComputeAngle(const Point2D<double>& init,
+		const Point2D<double>& term)
+	{
+		return SimplifyAngle(atan2((term.GetY() - init.GetY()),
+			(term.GetX() - init.GetX())));
+	}
 
 	/**
 	 * Method that computes the distance between the argued points.
@@ -191,22 +231,31 @@ public:
 	 * @param term  the second point
 	 * @returns     the distance between the argued points
 	 */
-	static double computeMagnitude(const Point2D<double>& init,
-		const Point2D<double>& term);
+	inline static double computeMagnitude(const Point2D<double>& init,
+		const Point2D<double>& term)
+	{
+		return init.Distance(term);
+	}
 
 	/**
 	 * Method that computes the angle from the origin to the argued point.
 	 * @param   term  point whose angle from the origin will be computed
 	 * @returns the angle in radians from the origin to the argued point
 	 */
-	static double ComputeAngle(const Point2D<double>& term);
+	inline static double ComputeAngle(const Point2D<double>& term)
+	{
+		return SimplifyAngle(std::atan2(term.GetY(), term.GetX()));
+	}
 
 	/**
 	 * Method that computes the distance between the argued point and the origin.
 	 * @param term  point whose distance from the origin will be computed
 	 * @returns     the distance between the origin and the point
 	 */
-	static double computeMagnitude(const Point2D<double>& term);
+	inline static double computeMagnitude(const Point2D<double>& term)
+	{
+		return term.Distance();
+	}
 
 	/**
 	 * Reduces the argued angle to an equivalent angle between 0 and 2π radians
@@ -221,27 +270,41 @@ public:
 	 * @param theta2  second angle in radians
 	 * @return        difference between the argued angle in radians
 	 */
-	static double AngleDiff(double theta1, double theta2);
+	inline static double AngleDiff(double theta1, double theta2)
+	{
+		double diff = SimplifyAngle(theta1 - theta2);
+		return diff > PI ? (TWO_PI - diff) : diff;
+	}
 
 	/**
 	 * Method that computes the cross product of this and the argued vector.
 	 * @param other  the other vector
 	 * @returns      the cross product of this and the other vector
 	 */
-	double cross(const Vector2D& other) const;
+	inline double cross(const Vector2D& other) const
+	{
+		return terminal.GetX() * other.terminal.GetY() -
+			terminal.GetY() * other.terminal.GetX();
+	}
 
 
 	/**
 	 * Override of == operator that checks for equivalence
 	 * between this and the argued vector.
 	 */
-	bool operator==(const Vector2D& other) const;
+	inline bool operator==(const Vector2D& other) const
+	{
+		return equals(other);
+	}
 
 	/**
 	 * Override of != operator that checks for inequivalence
 	 * between this and the argued vector.
 	 */
-	bool operator!=(const Vector2D& other) const;
+	inline bool operator!=(const Vector2D& other) const
+	{
+		return !equals(other);
+	}
 
 	/**
 	 * Method that checks for equivalence between this
@@ -249,7 +312,10 @@ public:
 	 *
 	 * @param  other  reference to the other point
 	 */
-	bool equals(const Vector2D& other) const;
+	inline bool equals(const Vector2D& other) const
+	{
+		return (terminal == other.GetTerminal());
+	}
 
 	/**
 	 * Implementation of the assignment operator.
@@ -269,30 +335,39 @@ public:
 	/**
 	 * Implementation of the + operator.
 	 */
-	const Vector2D operator+(const Vector2D& rhs) const;
+	inline const Vector2D operator+(const Vector2D& rhs) const
+	{
+		return (Vector2D(*this) += rhs);
+	}
 
 	/**
 	 * Implementation of the binary - operator.
 	 */
-	const Vector2D operator-(const Vector2D& rhs) const;
+	inline const Vector2D operator-(const Vector2D& rhs) const
+	{
+		return (Vector2D(*this) -= rhs);
+	}
 
 	/**
-	 * Implementatin of the unary - operator.
+	 * Implementation of the unary - operator.
 	 */
-	Vector2D operator-() const;
+	inline Vector2D operator-() const
+	{
+		return Vector2D(-terminal);
+	}
 
 private:
 
-	/** Terminal point of vector */
+	/** Terminal point of this vector */
 	Point2D<double> terminal;
 
-	/** Angle of vector in radians between 0 and 2PI */
+	/** Angle of this vector in radians between 0 and 2PI */
 	double angle;
 
-	/** Magnitude of vector */
+	/** Magnitude of this vector */
 	double magnitude;
 
-	/** Boolean for whether the magnitude is known */
+	/** Boolean for whether this vector's magnitude is known */
 	bool foundMagnitude;
 
 	/**
@@ -300,7 +375,11 @@ private:
 	 * angle between 0 and 2PI.
 	 * @param theta  the new angle of the vector
 	 */
-	void setAngle(double theta);
+	inline void setAngle(double theta)
+	{
+		angle = SimplifyAngle(theta);
+		terminal = GetTerminalFromPolar(angle, GetMagnitude());
+	}
 
 };
 

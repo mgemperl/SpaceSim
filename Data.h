@@ -214,7 +214,8 @@ namespace SpaceSimNS
 	// Ship weapon definition
 	struct WeapDef
 	{
-		std::string name;
+		const char* name;
+		const char* textureName;
 
 		double reloadTime;		// in seconds
 		WeaponSize size;
@@ -228,7 +229,7 @@ namespace SpaceSimNS
 
 
 		WeapDef(){}
-		WeapDef(std::string inName,
+		WeapDef(const char* inName,
 			int inReloadTime,
 			WeaponSize inSize,
 			bool inIsGuided,

@@ -74,21 +74,6 @@ Vector2D::~Vector2D()
 
 }
 
-Point2D<double> Vector2D::GetTerminal() const
-{
-	return Point2D<double>(terminal);
-}
-
-Point2D<double> Vector2D::GetTerminal(const Point2D<double>& initial) const
-{
-	return (terminal + initial);
-}
-
-double Vector2D::GetAngle() const
-{
-	return angle;
-}
-
 double Vector2D::GetMagnitude()
 {
 	if (!foundMagnitude)
@@ -116,21 +101,19 @@ double Vector2D::GetSqrMagnitude() const
 	return sqrMag;
 }
 
-void Vector2D::rotate(double dTheta)
-{
-	setAngle(angle + dTheta);
-}
-
-void Vector2D::rotateTo(double theta)
-{
-	setAngle(theta);
-}
-
 void Vector2D::scaleBy(double scalar)
 {
 	terminal = terminal * scalar;
-	magnitude = 0;
-	foundMagnitude = false;
+
+	if (foundMagnitude)
+	{
+		magnitude *= scalar;
+	}
+	else
+	{
+		magnitude = 0;
+		foundMagnitude = false;
+	}
 }
 
 void Vector2D::scaleTo(double mag)
@@ -138,29 +121,6 @@ void Vector2D::scaleTo(double mag)
 	magnitude = mag;
 	terminal = GetTerminalFromPolar(angle, magnitude);
 	foundMagnitude = true;
-}
-
-double Vector2D::ComputeAngle(const Point2D<double>& init,
-					const Point2D<double>& term)
-{
-	return SimplifyAngle(atan2((term.GetY() - init.GetY()),
-			                   (term.GetX() - init.GetX())));
-}
-
-double Vector2D::computeMagnitude(const Point2D<double>& init,
-						const Point2D<double>& term)
-{
-	return init.Distance(term);
-}
-
-double Vector2D::ComputeAngle(const Point2D<double>& term)
-{
-	return SimplifyAngle(std::atan2(term.GetY(), term.GetX()));
-}
-
-double Vector2D::computeMagnitude(const Point2D<double>& term)
-{
-	return term.Distance();
 }
 
 double Vector2D::SimplifyAngle(double theta)
@@ -175,26 +135,6 @@ double Vector2D::SimplifyAngle(double theta)
 	}
 
 	return theta;
-}
-
-double Vector2D::AngleDiff(double theta1, double theta2)
-{
-	double diff = SimplifyAngle(theta1 - theta2);
-
-	if (diff > PI)
-	{
-		diff = (TWO_PI - diff);
-	}
-
-	return diff;
-}
-
-Point2D<double> Vector2D::GetTerminalFromPolar(double theta, double mag)
-{
-	return Point2D<double>(
-		mag * std::cos(theta),
-		mag * std::sin(theta)
-		);
 }
 
 Point2D<double> Vector2D::GetRandTerminalFromPolar(double maxMag)
@@ -226,43 +166,6 @@ Point2D<double> Vector2D::GetRandTerminalFromPolar(double minMag, double maxMag)
 	return point;
 }
 
-double Vector2D::cross(const Vector2D& other) const
-{
-	return terminal.GetX() * other.terminal.GetY() -
-		   terminal.GetY() * other.terminal.GetX();
-}
-
-void Vector2D::normalize()
-{
-	scaleTo(1);
-}
-
-Vector2D Vector2D::normal() const
-{
-	return Vector2D(angle, 1);
-}
-
-void Vector2D::setAngle(double theta)
-{
-	angle = SimplifyAngle(theta);
-	terminal = GetTerminalFromPolar(angle, GetMagnitude());
-}
-
-bool Vector2D::operator==(const Vector2D& other) const
-{
-	return equals(other);
-}
-
-bool Vector2D::operator!=(const Vector2D& other) const
-{
-	return !equals(other);
-}
-
-bool Vector2D::equals(const Vector2D& other) const
-{
-	return (terminal == other.GetTerminal());
-}
-
 Vector2D& Vector2D::operator=(const Vector2D& rhs)
 {
 	if(*this != rhs)
@@ -284,8 +187,6 @@ Vector2D& Vector2D::operator+=(const Vector2D& rhs)
 	magnitude = 0;
 	foundMagnitude = false;
 
-	//magnitude = computeMagnitude(init, terminal);
-
 	return *this;
 }
 
@@ -298,24 +199,7 @@ Vector2D& Vector2D::operator-=(const Vector2D& rhs)
 	magnitude = 0;
 	foundMagnitude = false;
 
-	//magnitude = computeMagnitude(init, terminal);
-
 	return *this;
-}
-
-const Vector2D Vector2D::operator+(const Vector2D& rhs) const
-{
-	return (Vector2D(*this) += rhs);
-}
-
-const Vector2D Vector2D::operator-(const Vector2D& rhs) const
-{
-	return (Vector2D(*this) -= rhs);
-}
-
-Vector2D Vector2D::operator-() const
-{
-	return Vector2D(-terminal);
 }
 
 }

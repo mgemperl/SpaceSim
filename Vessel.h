@@ -10,6 +10,7 @@ namespace SpaceSimNS
 
 class WeaponSlot;
 class VesselController;
+class Damager;
 
 class Vessel : public Moveable
 {
@@ -64,7 +65,7 @@ public:
 	void StopAll();
 
 	bool Impact(
-		const Projectile* proj,
+		const Damager* proj,
 		const Space::Point2D<double>& impactPoint
 		);
 

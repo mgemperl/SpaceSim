@@ -14,7 +14,7 @@ namespace SpaceSimNS
 class MessageDispatcher;
 class Sector;
 class EntityManager;
-class Projectile;
+class CollisionPolygon;
 
 class Entity
 {

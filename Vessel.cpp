@@ -1,7 +1,7 @@
 #include "Vessel.h"
 #include "VesselController.h"
 #include "Sector.h"
-#include "Projectile.h"
+#include "Damager.h"
 #include "WeaponSlot.h"
 #include "Data.h"
 #include "EntityManager.h"
@@ -81,7 +81,7 @@ void Vessel::SetTarget(const Vessel* pTarget)
 }
 
 bool Vessel::Impact(
-	const Projectile* proj,
+	const Damager* proj,
 	const Space::Point2D<double>& impactPoint
 	)
 {

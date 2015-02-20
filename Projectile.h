@@ -29,9 +29,9 @@ public:
 
 	virtual void HandleMessage(const Telegram& message) override;
 
-	bool Intact() const;
+	bool Intact() const override;
 
-	inline virtual ClassType GetClass() const;
+	inline virtual ClassType GetClass() const override;
 
 	void Hit(Entity* victim, const Space::Point2D<double>& hitPoint);
 

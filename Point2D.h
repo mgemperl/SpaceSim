@@ -23,25 +23,41 @@ public:
 	 * @param  inX  a value representing an X coordinate in 2-space
 	 * @param  inY  a value representing a Y coordinate in 2-space
 	 */
-	Point2D(T inX, T inY);
+	Point2D(T inX, T inY)
+	{
+		X = inX;
+		Y = inY;
+	}
 
 	/**
 	 * Copy constructor for a 2D point in space.
 	 * @param  point  reference to the point to be copied
 	 */
-	Point2D(const Point2D<T>& point);
+	Point2D(const Point2D<T>& point)
+	{
+		X = point.X;
+		Y = point.Y;
+	}
 
 	/**
 	 * Contsructor for a random point within the argued rectangle.
 	 * @param topLeft  upper-left-most point possible
 	 * @param botRight lower-right-most point possible
 	 */
-	Point2D(const Point2D<T>& topLeft, const Point2D<T>& botRight);
+	Point2D(const Point2D<T>& topLeft, const Point2D<T>& botRight)
+	{
+		X = topLeft.X + RANDOM * (botRight.X - topLeft.X);
+		Y = botRight.Y + RANDOM * (topLeft.Y - botRight.Y);
+	}
 
 	 /**
 	 * Default contructor that initializes the point at the origin.
 	 */
-	Point2D(void);
+	Point2D(void)
+	{
+		X = 0;
+		Y = 0;
+	}
 
 	/**
 	 * Accessor method for the X coordinate.
@@ -74,14 +90,22 @@ public:
 	 * @param other  reference to the other point
 	 * @returns distance between this point and the argued point
 	 */
-	T Distance(const Point2D<T>& other) const;
+	inline T Distance(const Point2D<T>& other) const
+	{
+		return std::sqrt((other.X - X) * (other.X - X) +
+			(other.Y - Y) * (other.Y - Y));
+	}
 
 	/**
 	* Computes and returns the distance between this point
 	* and the origin.
 	* @returns distance between this point and the origin
 	*/
-	T Distance() const;
+	inline T Distance() const
+	{
+		return std::sqrt(X * X + Y * Y);
+	}
+
 
 	/**
 	 * Computes and returns the square distance between this point
@@ -90,7 +114,11 @@ public:
 	 * @param other  the other point
 	 * @returns square distance between this point and the argued point
 	 */
-	T SqrDistance(const Point2D<T>& other) const;
+	inline T SqrDistance(const Point2D<T>& other) const
+	{
+		return abs((other.X - X) * (other.X - X) +
+			(other.Y - Y) * (other.Y - Y));
+	}
 
 	/**
 	* Computes and returns the square distance between this point
@@ -98,7 +126,10 @@ public:
 	* distance.
 	* @returns square distance between this point and the origin
 	*/
-	T SqrDistance() const;
+	inline T SqrDistance() const
+	{
+		return X * X + Y * Y;
+	}
 
 	/**
 	 * Checks whether this point is contained within the argued rectangle,
@@ -108,59 +139,108 @@ public:
 	 * @returns        true if this point is in the rectangle
 	 *                 false if this point is not in the rectangle
 	 */
-	bool InRect(const Point2D<T>& topLeft, const Point2D<T>& botRight) const;
+	inline bool InRect(const Point2D<T>& topLeft, const Point2D<T>& botRight) const
+	{
+		return ((X >= topLeft.X) &&
+			(X <= botRight.X) &&
+			(Y >= botRight.Y) &&
+			(Y <= topLeft.Y)
+			);
+	}
 
 	/**
 	 * Implementation of = operator.
 	 */
-	Point2D<T>& operator=(const Point2D<T>& rhs);
+	inline Point2D<T>& operator=(const Point2D<T>& rhs)
+	{
+		X = rhs.X;
+		Y = rhs.Y;
+
+		return *this;
+	}
 
 	/**
 	 * Implementation of == operator.
 	 */
-	bool operator==(const Point2D<T>& other) const;
+	inline bool operator==(const Point2D<T>& other) const
+	{
+		return Equals(other);
+	}
 
 	/**
 	 * Implementation of != operator.
 	 */
-	bool operator!=(const Point2D<T>& other) const;
+	inline bool operator!=(const Point2D<T>& other) const
+	{
+		return !Equals(other);
+	}
 
 	/**
 	 * Implementation of += operator.
 	 */
-	Point2D<T>& operator+=(const Point2D<T>& rhs);
+	inline Point2D<T>& operator+=(const Point2D<T>& rhs)
+	{
+		X += rhs.X;
+		Y += rhs.Y;
+		return *this;
+	}
 
 	/** 
 	 *  Implementation of -= operator.
 	 */
-	Point2D<T>& operator-=(const Point2D<T>& rhs);
+	inline Point2D<T>& operator-=(const Point2D<T>& rhs)
+	{
+		X -= rhs.X;
+		Y -= rhs.Y;
+		return *this;
+	}
 
 	/**
 	 * Implementation of + operator.
 	 */
-	const Point2D<T> operator+(const Point2D<T>& rhs) const;
+	inline const Point2D<T> operator+(const Point2D<T>& rhs) const
+	{
+		return Point2D<T>(X + rhs.X, Y + rhs.Y);
+	}
 
 	/**
 	* Implementation of binary - operator.
 	*/
-	const Point2D<T> operator-(const Point2D<T>& rhs) const;
+	inline const Point2D<T> operator-(const Point2D<T>& rhs) const
+	{
+		return Point2D<T>(X - rhs.X, Y - rhs.Y);
+	}
 
 	/**
 	* Implementation of unary - operator.
 	*/
-	Point2D<T> operator-() const;
+	inline Point2D<T> operator-() const
+	{
+		return Point2D<T>(-X, -Y);
+	}
+
 
 	/**
-	* Implementation of * operator with scalars
+	*  Scale the point by the scalar rhs
 	*/
-	Point2D<T> operator*(T rhs) const;
+	inline Point2D<T> operator*(T rhs) const
+	{
+		return Point2D<T>(X * rhs, Y * rhs);
+	}
 
 	/**
 	 * Method that checks for equivalence between this
 	 * and the argued object.
 	 * @param  other  reference to the other point
 	 */
-	bool Equals(const Point2D<T>& other) const;
+	inline bool Equals(const Point2D<T>& other) const
+	{
+		return ((this->X <= other.X + THETA_E) &&
+			(this->X >= other.X - THETA_E) &&
+			(this->Y <= other.Y + THETA_E) &&
+			(this->Y >= other.Y - THETA_E)
+		);
+	}
 
 private:
 
@@ -170,138 +250,5 @@ private:
 	/** The y coordinate of the point */
 	T Y;
 };
-
-
-template <class T>
-Point2D<T>::Point2D(T inX, T inY)
-{
-	X = inX;
-	Y = inY;
-}
-
-template <class T>
-Point2D<T>::Point2D(const Point2D<T>& point)
-{
-	X = point.X;
-	Y = point.Y;
-}
-
-template <class T>
-Point2D<T>::Point2D(const Point2D<T>& topLeft, const Point2D<T>& botRight)
-{
-	X = topLeft.X + RANDOM * (botRight.X - topLeft.X);
-	Y = botRight.Y + RANDOM * (topLeft.Y - botRight.Y);
-}
-
-template <class T>
-Point2D<T>::Point2D(void)
-{
-	X = 0;
-	Y = 0;
-}
-
-template <class T>
-T Point2D<T>::Distance(const Point2D<T>& other) const
-{
-	return std::sqrt((other.X - X) * (other.X - X) +
-		(other.Y - Y) * (other.Y - Y));
-}
-
-template <class T>
-T Point2D<T>::Distance() const
-{
-	return std::sqrt(X * X + Y * Y);
-}
-
-template <class T>
-T Point2D<T>::SqrDistance(const Point2D<T>& other) const
-{
-	return abs((other.X - X) * (other.X - X) +
-		(other.Y - Y) * (other.Y - Y));
-}
-
-template <class T>
-T Point2D<T>::SqrDistance() const
-{
-	return X * X + Y * Y;
-}
-
-template <class T>
-bool Point2D<T>::InRect(const Point2D<T>& topLeft, const Point2D<T>& botRight) const
-{
-	return ((X >= topLeft.X) &&
-		(X <= botRight.X) &&
-		(Y >= botRight.Y) &&
-		(Y <= topLeft.Y)
-		);
-}
-
-template <class T>
-Point2D<T>& Point2D<T>::operator=(const Point2D<T>& rhs)
-{
-	X = rhs.X;
-	Y = rhs.Y;
-
-	return *this;
-}
-
-template <class T>
-bool Point2D<T>::Equals(const Point2D<T>& other) const
-{
-	return ((this->X == other.X) &&
-		(this->Y == other.Y));
-}
-
-template <class T>
-bool Point2D<T>::operator==(const Point2D<T>& other) const
-{
-	return Equals(other);
-}
-
-template <class T>
-bool Point2D<T>::operator!=(const Point2D<T>& other) const
-{
-	return !Equals(other);
-}
-
-template <class T>
-Point2D<T>& Point2D<T>::operator+=(const Point2D<T>& rhs)
-{
-	X += rhs.X;
-	Y += rhs.Y;
-	return *this;
-}
-
-template <class T>
-Point2D<T>& Point2D<T>::operator-=(const Point2D<T>& rhs)
-{
-	X -= rhs.X;
-	Y -= rhs.Y;
-	return *this;
-}
-
-template <class T>
-const Point2D<T> Point2D<T>::operator+(const Point2D<T>& rhs) const
-{
-	return Point2D<T>(X + rhs.X, Y + rhs.Y);
-}
-
-template <class T>
-const Point2D<T> Point2D<T>::operator-(const Point2D<T>& rhs) const
-{
-	return Point2D<T>(X - rhs.X, Y - rhs.Y);
-}
-
-template <class T>
-Point2D<T> Point2D<T>::operator-() const
-{
-	return Point2D<T>(-X, -Y);
-}
-
-template <class T>
-Point2D<T> Point2D<T>::operator*(T rhs) const
-{
-	return Point2D<T>(X * rhs, Y * rhs);
-}
 
 }
