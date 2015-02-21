@@ -112,6 +112,14 @@ public:
 	// NULL for no sector
 	Sector* GetSector() const { return m_pSector; }
 
+	// Checks whether or not this entity collides with damagers.
+	bool IsDamageable() const { return m_bDamageable; }
+
+	bool IsCollider() const { return m_bCollider; }
+
+	// Returns a pointer to this entity's collision polygon. Returns
+	// NULL if the collision polygon hasn't been initialized.
+	CollisionPolygon* GetCollisionPolygon() { return m_pPolygon; }
 
 	// Accessor for whether this entity is hostile toward the argued entity
 	bool IsHostile(const Entity* entity) const;
@@ -144,6 +152,27 @@ public:
 	// number of radians
 	void Turn(double dTheta) { SetOrientation(m_dOrientation + dTheta); }
 
+	// Sets whether his entity collides with damagers. If true, damagers
+	// such as projectiles will check if they collide with this entity,
+	// and inform this entity in the case of collision through the
+	// messaging system (HandleMessage).
+	void SetDamageable(bool damageable)
+	{
+		m_bDamageable = damageable;
+	}
+
+	// True if this entity collides with damageables. False if it
+	// doesn't affect them.
+	void SetCollider(bool collider)
+	{
+		m_bCollider = collider;
+	}
+
+	// Set this entity's collision polygon using the argued vector
+	// of vertices. If the collision polygon is already initialized,
+	// it will be freed, and this new one will take its place.
+	void SetCollisionPolygon(std::vector<Space::Point2D<double>>& vertices);
+	
 
 	/** Misc Methods **/
 
@@ -168,6 +197,10 @@ public:
 	{
 		return m_position.SqrDistance(other->m_position);
 	}
+
+	// Returns true if this entity's collision polygon overlaps
+	// with the argued entity's. False otherwise.
+	bool CollidesWith(Entity* other);
 
 	// Roughly predicts the point at which it would be possible for an
 	// entity at the argued position with the argued speed to collide 
@@ -233,6 +266,15 @@ private:
 
 	/** The drawble for handling this entity's rendering **/
 	Drawable* m_pDrawable;
+
+	/** Whether this entity collides with damagers **/
+	bool m_bDamageable;
+
+	/** Whether this entity collides with damageables **/
+	bool m_bCollider;
+
+	/** This entity's collision polygon **/
+	CollisionPolygon* m_pPolygon;
 
 	// Method for assigning a unique ID number to an entity
 	// on construction

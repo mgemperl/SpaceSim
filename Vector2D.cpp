@@ -1,16 +1,23 @@
 #include <cmath>
 #include <stdlib.h>
 #include "Vector2D.h"
-#include "Data.h"
 
 namespace Space
 {
 
+Vector2D::Vector2D(const Vector2D& vector)
+{
+	terminal = vector.terminal;
+	angle = vector.angle;
+	magnitude = vector.magnitude;
+	foundMagnitude = vector.foundMagnitude;
+}
+
 Vector2D::Vector2D(const Point2D<double>& inTerminal)
 {
-	terminal = Point2D<double>(inTerminal);
+	terminal = inTerminal;
 	Point2D<double> init = Point2D<double>(0, 0);
-	angle = ComputeAngle(init, inTerminal);
+	angle = inTerminal.Angle();
 	magnitude = 0;
 	foundMagnitude = false;
 }
@@ -18,7 +25,7 @@ Vector2D::Vector2D(const Point2D<double>& inTerminal)
 Vector2D::Vector2D(const Point2D<double>& inInitial,
 				   const Point2D<double>& inTerminal)
 {
-	terminal = Point2D<double>(inTerminal);
+	terminal = inTerminal;
 	angle = ComputeAngle(inInitial, inTerminal);
 	magnitude = 0;
 	foundMagnitude = false;
@@ -36,23 +43,10 @@ Vector2D::Vector2D(const Point2D<double>& inInitial,
 
 Vector2D::Vector2D(double inAngleRads, double inMagnitude)
 {
-	angle = inAngleRads;
+	angle = SimplifyAngle(inAngleRads);
 	magnitude = inMagnitude;
 	terminal = GetTerminalFromPolar(angle, magnitude);
 	foundMagnitude = true;
-}
-
-Vector2D::Vector2D(const Vector2D& other)
-{
-	terminal = Point2D<double>(other.terminal);
-	angle = other.angle;
-
-	if (other.foundMagnitude)
-	{
-		magnitude = other.magnitude;
-		foundMagnitude = true;
-	}
-	
 }
 
 Vector2D::Vector2D(double maxMag)
@@ -125,16 +119,8 @@ void Vector2D::scaleTo(double mag)
 
 double Vector2D::SimplifyAngle(double theta)
 {
-	if (theta > TWO_PI)
-	{
-		theta = std::fmod(theta, TWO_PI);
-	}
-	else if (theta < 0)
-	{
-		theta = TWO_PI - std::fmod(-theta, TWO_PI);
-	}
-
-	return theta;
+	double neoTheta = fmod(theta, TWO_PI);
+	return (theta < 0 ? TWO_PI + neoTheta : neoTheta);
 }
 
 Point2D<double> Vector2D::GetRandTerminalFromPolar(double maxMag)
@@ -173,6 +159,7 @@ Vector2D& Vector2D::operator=(const Vector2D& rhs)
 		this->terminal = rhs.terminal;
 		this->angle = rhs.angle;
 		this->magnitude = rhs.magnitude;
+		this->foundMagnitude = rhs.foundMagnitude;
 	}
 
 	return *this;

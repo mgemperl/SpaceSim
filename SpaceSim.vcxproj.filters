@@ -88,8 +88,6 @@
     <ClCompile Include="Background.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="GuidanceStates.cpp" />
-    <ClCompile Include="GuidedProjectile.cpp" />
     <ClCompile Include="Damager.cpp" />
     <ClCompile Include="CollisionPolygon.cpp" />
   </ItemGroup>
@@ -199,8 +197,6 @@
     <ClInclude Include="resource.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="GuidanceStates.h" />
-    <ClInclude Include="GuidedProjectile.h" />
     <ClInclude Include="Damager.h" />
     <ClInclude Include="CollisionPolygon.h" />
   </ItemGroup>

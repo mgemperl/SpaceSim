@@ -1,8 +1,27 @@
 #pragma once
 
+#ifndef PI
+#define PI 3.14159265
+static const double TWO_PI = PI * 2.0;
+static const double HALF_PI = PI / 2.0;
+static const double THIRD_PI = PI / 3.0;
+static const double QUARTER_PI = PI / 4.0;
+static const double EIGHTH_PI = PI / 8.0;
+static const double SIXTEENTH_PI = PI / 16.0;
+#endif
+
+#ifndef THETA_E
+#define THETA_E 0.0001
+#endif
+
+#ifndef RANDOM
+#define RANDOM (double(rand()) / double(RAND_MAX))
+#define RANDSIGN ((rand() % 2) ? -1.0 : 1.0)
+#define RANDBOOL ((rand() % 2) ? false : true)
+#endif
+
 #include <cmath>
 #include <stdlib.h>
-#include "Data.h"
 
 namespace Space
 {
@@ -83,6 +102,21 @@ public:
 	 * @param point  point with this point's new coordinates
 	 */
 	inline void Set(const Point2D<T>& point) { X = point.X; Y = point.Y; }
+	
+	/**
+	* Method that computes the angle from this point to the argued point.
+	*/
+	inline double Angle(const Point2D<T>& other) const
+	{
+		double angle = fmod(atan2(other.Y - Y, other.X - X), TWO_PI);
+		return (angle < 0 ? TWO_PI + angle : angle);
+	}
+
+	inline double Angle() const
+	{
+		double angle = fmod(atan2(Y, X), TWO_PI);
+		return (angle < 0 ? TWO_PI + angle : angle);
+	}
 
 	/**
 	 * Computes and returns the distance between this point

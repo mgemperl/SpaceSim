@@ -23,11 +23,9 @@
 #define SAFE_DELETE_ARRAY(ptr) { if(ptr) { delete [](ptr); (ptr)=NULL; } }
 
 #ifndef RANDOM
-
 #define RANDOM (double(rand()) / double(RAND_MAX))
 #define RANDSIGN ((rand() % 2) ? -1.0 : 1.0)
 #define RANDBOOL ((rand() % 2) ? false : true)
-
 #endif
 
 //-----------------------------------------------
@@ -42,15 +40,19 @@ const UINT GAME_WIDTH =  1024U;
 const UINT GAME_HEIGHT = 800U;
  
 // game
-const double PI = 3.14159265;
+#ifndef PI
+#define PI 3.14159265
 const double TWO_PI = PI * 2.0;
 const double HALF_PI = PI / 2.0;
 const double THIRD_PI = PI / 3.0;
 const double QUARTER_PI = PI / 4.0;
 const double EIGHTH_PI = PI / 8.0;
 const double SIXTEENTH_PI = PI / 16.0;
+#endif
 
-const double THETA_E = 0.0001;
+#ifndef THETA_E
+#define THETA_E 0.0001
+#endif
 
 const float FRAME_RATE  = 80.0f;               // the target frame rate (frames/sec)
 const float MIN_FRAME_RATE = 1.0f;             // the minimum frame rate

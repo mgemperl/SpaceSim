@@ -42,6 +42,8 @@ public:
 
 	void ConstUpdate();
 
+	void HandleCollisions();
+
 	void AddFleets(std::vector<Fleet*>& fleets);
 
 	/**

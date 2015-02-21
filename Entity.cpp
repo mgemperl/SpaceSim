@@ -2,6 +2,7 @@
 
 #include "Entity.h"
 #include "EntityManager.h"
+#include "CollisionPolygon.h"
 #include <string>
 
 using namespace Space;
@@ -16,6 +17,9 @@ Entity::Entity(const Space::Point2D<double>& inPos)
 	m_allegience = SWISS;
 	m_pDrawable = NULL;
 	m_dOrientation = 0;
+	m_bCollider = false;
+	m_bDamageable = false;
+	m_pPolygon = NULL;
 
 	EntityManager::Instance()->RegisterEntity(this);
 }
@@ -27,6 +31,9 @@ Entity::Entity(const Space::Point2D<double>& inPos, Faction inAllegience)
 	m_allegience = inAllegience;
 	m_pDrawable = NULL;
 	m_dOrientation = 0;
+	m_bCollider = false;
+	m_bDamageable = false;
+	m_pPolygon = NULL;
 
 	EntityManager::Instance()->RegisterEntity(this);
 }
@@ -50,8 +57,23 @@ void Entity::ReleaseDrawable()
 
 Entity::~Entity()
 {
+	if (m_pPolygon != NULL)
+	{
+		delete m_pPolygon;
+	}
+
 	ReleaseDrawable();
 	EntityManager::Instance()->RemoveEntity(m_ID);
+}
+
+void Entity::SetCollisionPolygon(std::vector<Point2D<double>>& vertices)
+{
+	if (m_pPolygon != NULL)
+	{
+		delete m_pPolygon;
+	}
+
+	m_pPolygon = new CollisionPolygon(vertices);
 }
 
 void Entity::Update(double deltaT)
@@ -76,6 +98,15 @@ bool Entity::IsHostile(const Entity* entity) const
 	}
 
 	return isHostile;
+}
+
+bool Entity::CollidesWith(Entity* other)
+{
+	return m_pPolygon->DetectCollision(
+		other->m_pPolygon,
+		other->m_position - m_position,
+		m_dOrientation,
+		other->m_dOrientation);
 }
 
 void Entity::Render(float interpolation, Point2D<double>& offset)

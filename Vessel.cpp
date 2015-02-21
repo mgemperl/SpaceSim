@@ -5,6 +5,7 @@
 #include "WeaponSlot.h"
 #include "Data.h"
 #include "EntityManager.h"
+#include <vector>
 
 using namespace Space;
 
@@ -22,6 +23,17 @@ Vessel::Vessel(const ShipDef& pDef, Faction allegience, VesselController* pCont)
 
 	m_pController = pCont;
 	pCont->Assign(this);
+
+	SetDamageable(true);
+
+	std::vector<Point2D<double>> polygon;
+	polygon.emplace_back(Point2D<double>(6, 3));
+	polygon.emplace_back(Point2D<double>(2, 14));
+	polygon.emplace_back(Point2D<double>(-2, 14));
+	polygon.emplace_back(Point2D<double>(-6, 3));
+	polygon.emplace_back(Point2D<double>(-6, -16));
+	polygon.emplace_back(Point2D<double>(6, -16));
+	SetCollisionPolygon(polygon);
 
 	m_pTarget = NULL;
 	justTargeted = false;

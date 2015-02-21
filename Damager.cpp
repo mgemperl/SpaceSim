@@ -16,7 +16,7 @@ Damager::~Damager()
 {
 }
 
-void Damager::Hit(Vessel* victim, const Point2D<double>& hitPoint)
+void Damager::Damage(Vessel* victim, const Point2D<double>& hitPoint)
 {
 	victim->Impact(this, hitPoint);
 }

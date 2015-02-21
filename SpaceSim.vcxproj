@@ -106,8 +106,6 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameException.h" />
     <ClInclude Include="GameState.h" />
-    <ClInclude Include="GuidanceStates.h" />
-    <ClInclude Include="GuidedProjectile.h" />
     <ClInclude Include="MessageDispatcher.h" />
     <ClInclude Include="Moveable.h" />
     <ClInclude Include="Player.h" />
@@ -144,8 +142,6 @@
     <ClCompile Include="Fleet.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />
-    <ClCompile Include="GuidanceStates.cpp" />
-    <ClCompile Include="GuidedProjectile.cpp" />
     <ClCompile Include="MessageDispatcher.cpp" />
     <ClCompile Include="Moveable.cpp" />
     <ClCompile Include="Player.cpp" />

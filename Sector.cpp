@@ -4,6 +4,7 @@
 #include "Background.h"
 #include "System.h"
 #include "Vessel.h"
+#include "Damager.h"
 #include "VesselController.h"
 #include "Fleet.h"
 
@@ -73,6 +74,27 @@ void Sector::ConstUpdate()
 		}
 
 		pEntity->PhysUpdate();
+	}
+
+	HandleCollisions();
+}
+
+void Sector::HandleCollisions()
+{
+	for (Entity* pCollider: m_occupants)
+	{
+		if (pCollider->IsCollider())
+		{
+			for (Entity* pEntity : m_occupants)
+			{
+				if (pEntity != pCollider &&
+					pEntity->IsDamageable() &&
+					pCollider->CollidesWith(pEntity))
+				{
+					RemoveEntity(pCollider);
+				}
+			}
+		}
 	}
 }
 

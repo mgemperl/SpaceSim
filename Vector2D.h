@@ -16,6 +16,9 @@ class Vector2D
 
 public:
 
+	/** Copy Constructor **/
+	Vector2D(const Vector2D& vector);
+
 	/**
 	 * Constructor taking the terminal point of a 2D vector.
 	 * @param  inTerminal  reference to the terminal point of the vector
@@ -47,12 +50,6 @@ public:
 	 * @param  inMagnitude  the length of the vector
 	 */
 	Vector2D(double inAngleRads, double inMagnitude);
-
-	/**
-	 * Copy constructor for a Vector2D.
-	 * @param other  the Vector2D object to be copied
-	 */
-	Vector2D(const Vector2D& other);
 
 	/**
 	 * Constructor that creates a vector with a random angle and
@@ -178,7 +175,6 @@ public:
 	{
 		return Vector2D(angle + HALF_PI, magnitude);
 	}
-	
 
 	/**
 	 * Method that returns the cartesian point represented by the argued
@@ -221,8 +217,7 @@ public:
 	inline static double ComputeAngle(const Point2D<double>& init,
 		const Point2D<double>& term)
 	{
-		return SimplifyAngle(atan2((term.GetY() - init.GetY()),
-			(term.GetX() - init.GetX())));
+		return init.Angle(term);
 	}
 
 	/**
@@ -244,7 +239,7 @@ public:
 	 */
 	inline static double ComputeAngle(const Point2D<double>& term)
 	{
-		return SimplifyAngle(std::atan2(term.GetY(), term.GetX()));
+		return term.Angle();
 	}
 
 	/**
@@ -274,6 +269,24 @@ public:
 	{
 		double diff = SimplifyAngle(theta1 - theta2);
 		return diff > PI ? (TWO_PI - diff) : diff;
+	}
+
+	/**
+	 * Computes the dot product of this and the argued vector
+	 */
+	inline double Dot(const Vector2D& other) const
+	{
+		return GetTerminal().GetX() * other.GetTerminal().GetX() +
+			GetTerminal().GetY() * other.GetTerminal().GetY();
+	}
+
+	/**
+	 * Computes the length of the projection of the argued vector onto 
+	 * this vector
+	 */
+	inline double ProjLength(const Vector2D& other)
+	{
+		return Dot(other) / GetMagnitude();
 	}
 
 	/**
@@ -354,6 +367,11 @@ public:
 	inline Vector2D operator-() const
 	{
 		return Vector2D(-terminal);
+	}
+
+	bool operator<(const Vector2D& other)
+	{
+		return angle < other.angle;
 	}
 
 private:
