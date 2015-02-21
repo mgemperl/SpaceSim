@@ -94,4 +94,15 @@ CollisionPolygon::Edge CollisionPolygon::GetEdge(
 	return CollisionPolygon::Edge(first, second);
 }
 
+Point2D<double> CollisionPolygon::SweepPolygon(CollisionPolygon* swept,
+	const Vector2D& velocity)
+{
+	// Translate all vertices in the same general direction (within HALF_PI inclusive) 
+	// as the velocity vector by half the velocity vector. Translate all vertices 
+	// in the opposite direction by half the negative velocity. Return half the
+	// velocity vector as the offset of the center.
+
+	return Point2D<double>(0, 0);
+}
+
 }

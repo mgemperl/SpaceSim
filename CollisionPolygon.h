@@ -53,6 +53,11 @@ private:
 		the vertex in the counter-clockwise direction **/
 	std::set<Space::Vector2D*, VectorPtrComp> m_vertices;
 
+	/** Use these for a bounding box collision pre-check (set them
+		up during construction) **/
+	Space::Point2D<double> m_min;
+	Space::Point2D<double> m_max;
+
 	typedef std::pair<Space::Vector2D, Space::Vector2D> Edge;
 
 	/** Get the two vertices from this polygon that need to be
@@ -60,6 +65,12 @@ private:
 		the edge along the line joining the centers of the two
 		polygons **/
 	Edge GetEdge(Space::Vector2D& offset, double angle);
+
+	/** Takes a velocity and collision polygon pointer, and it sweeps
+		the collision polygon along the argued vector Returns the offset
+		of the center caused by the sweep **/
+	Space::Point2D<double> SweepPolygon(CollisionPolygon* swept, 
+		const Space::Vector2D& velocity);
 
 	/** Implementation of a simple separating axis algorithm **/
 	inline bool SAT(Space::Vector2D& axis, Space::Vector2D& a, 

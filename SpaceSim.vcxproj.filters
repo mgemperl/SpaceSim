@@ -88,8 +88,12 @@
     <ClCompile Include="Background.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Damager.cpp" />
-    <ClCompile Include="CollisionPolygon.cpp" />
+    <ClCompile Include="CollisionPolygon.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Damager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Data.h">
@@ -197,8 +201,12 @@
     <ClInclude Include="resource.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Damager.h" />
-    <ClInclude Include="CollisionPolygon.h" />
+    <ClInclude Include="Damager.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionPolygon.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
