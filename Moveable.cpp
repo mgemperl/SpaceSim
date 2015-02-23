@@ -1,4 +1,5 @@
 #include "Moveable.h"
+#include "CollisionPolygon.h"
 
 using namespace Space;
 
@@ -27,37 +28,23 @@ Moveable::~Moveable()
 	
 }
 
-Space::Point2D<double> Moveable::GetInterpPos(double interp) const
+bool Moveable::CollidesWith(Entity* other)
 {
-	Space::Vector2D interpVec = Space::Vector2D(m_Velocity);
-	interpVec.scaleBy(interp);
+	bool collides = CollisionPolygon::DetectCollision(
+		GetCollisionPolygon(),
+		other->GetCollisionPolygon(),
+		other->GetPos() - GetPos(),
+		-m_Velocity,
+		-other->GetVelocity(),
+		GetOrientationRad(),
+		other->GetOrientationRad());
 
-	return interpVec.GetTerminal() + GetPos();
-}
-
-void Moveable::PhysUpdate()
-{
-	SetPosition(m_Velocity.GetTerminal(GetPos()));
-}
-
-void Moveable::SetVelocity(const Space::Vector2D& velocity)
-{
-	m_Velocity = velocity;
-}
-
-void Moveable::Accelerate(const Space::Vector2D& dV)
-{
-	m_Velocity += dV;
-}
-
-void Moveable::Accelerate(const Space::Vector2D& dV, double maxSpeed)
-{
-	m_Velocity += dV;
-
-	if (m_Velocity.GetSqrMagnitude() > maxSpeed * maxSpeed)
+	if (SqrDistance(other) < 2.0 && !collides)
 	{
-		m_Velocity.scaleTo(maxSpeed);
+		char* str = "breakpoint";
 	}
+
+	return collides;
 }
 
 Space::Point2D<double> Moveable::ProjectCollisionPointSimple(

@@ -89,6 +89,7 @@ void Sector::HandleCollisions()
 			{
 				if (pEntity != pCollider &&
 					pEntity->IsDamageable() &&
+					pEntity->IsHostile(pCollider) &&
 					pCollider->CollidesWith(pEntity))
 				{
 					RemoveEntity(pCollider);

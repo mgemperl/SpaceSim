@@ -8,6 +8,11 @@
 #include "Data.h"
 #include "Vector2D.h"
 
+namespace Space
+{
+	class Vector2D;
+}
+
 namespace SpaceSimNS
 {
 
@@ -98,6 +103,8 @@ public:
 
 	// Accessor for this entity's orientation in radians
 	double GetOrientationDeg() const { return m_dOrientation * (180.0 / PI); }
+
+	virtual Space::Vector2D GetVelocity() const;
 
 	// Accessor for the name of this class 
 	inline virtual ClassType GetClass() const { return ENTITY; }
@@ -200,7 +207,7 @@ public:
 
 	// Returns true if this entity's collision polygon overlaps
 	// with the argued entity's. False otherwise.
-	bool CollidesWith(Entity* other);
+	virtual bool CollidesWith(Entity* other);
 
 	// Roughly predicts the point at which it would be possible for an
 	// entity at the argued position with the argued speed to collide 

@@ -27,10 +27,8 @@ Vessel::Vessel(const ShipDef& pDef, Faction allegience, VesselController* pCont)
 	SetDamageable(true);
 
 	std::vector<Point2D<double>> polygon;
-	polygon.emplace_back(Point2D<double>(6, 3));
-	polygon.emplace_back(Point2D<double>(2, 14));
-	polygon.emplace_back(Point2D<double>(-2, 14));
-	polygon.emplace_back(Point2D<double>(-6, 3));
+	polygon.emplace_back(Point2D<double>(3, 14));
+	polygon.emplace_back(Point2D<double>(-3, 14));
 	polygon.emplace_back(Point2D<double>(-6, -16));
 	polygon.emplace_back(Point2D<double>(6, -16));
 	SetCollisionPolygon(polygon);

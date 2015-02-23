@@ -3,6 +3,7 @@
 #include "Entity.h"
 #include "EntityManager.h"
 #include "CollisionPolygon.h"
+#include "Vector2D.h"
 #include <string>
 
 using namespace Space;
@@ -44,6 +45,11 @@ bool Entity::InitializeDrawable(Graphics* pGraphics, int width, int height,
 	ReleaseDrawable();
 	m_pDrawable = new Drawable();
 	return m_pDrawable->Initialize(pGraphics, width, height, nCols, texture);
+}
+
+Vector2D Entity::GetVelocity() const
+{
+	return Vector2D();
 }
 
 void Entity::ReleaseDrawable()

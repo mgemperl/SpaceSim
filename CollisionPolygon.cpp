@@ -8,7 +8,6 @@ using namespace Space;
 namespace SpaceSimNS
 {
 
-
 CollisionPolygon::CollisionPolygon(const std::vector<Point2D<double>>& vertices)
 {
 	m_vertices.clear();
@@ -18,8 +17,18 @@ CollisionPolygon::CollisionPolygon(const std::vector<Point2D<double>>& vertices)
 		m_vertices.emplace(new Vector2D(point));
 	}
 
+	IsConvex();
 }
 
+CollisionPolygon::CollisionPolygon(const CollisionPolygon& other)
+{
+	for (Vector2D* vector : other.m_vertices)
+	{
+		m_vertices.emplace(new Vector2D(*vector));
+	}
+
+	IsConvex();
+}
 
 CollisionPolygon::~CollisionPolygon()
 {
@@ -29,7 +38,51 @@ CollisionPolygon::~CollisionPolygon()
 	}
 }
 
-bool CollisionPolygon::DetectCollision(CollisionPolygon* other,
+bool CollisionPolygon::DetectCollision(const CollisionPolygon* firstPoly,
+	const CollisionPolygon* secondPoly,
+	const Point2D<double>& offset,
+	const Vector2D& firstVelocity,
+	const Vector2D& secondVelocity,
+	double firstOrient,
+	double secondOrient)
+{
+	bool collision = false;
+
+
+
+	CollisionPolygon firstSwept = CollisionPolygon(*firstPoly);
+	CollisionPolygon secondSwept = CollisionPolygon(*secondPoly);
+
+	Point2D<double> firstDisp = SweepPolygon(
+		firstSwept, firstVelocity, firstOrient);
+
+	Point2D<double> secondDisp = SweepPolygon(
+		secondSwept, secondVelocity, secondOrient);
+
+	collision = firstSwept.DetectCollision(&secondSwept,
+		offset - firstDisp + secondDisp,
+		0.0, 0.0);
+
+
+	return collision;
+}
+
+
+bool CollisionPolygon::DetectCollision(const CollisionPolygon* dynPoly,
+	const CollisionPolygon* statPoly,
+	const Point2D<double>& offset,
+	const Vector2D& velocity,
+	double dynOrient,
+	double statOrient)
+{
+	CollisionPolygon swept = CollisionPolygon(*dynPoly);
+	Point2D<double> displacement = SweepPolygon(swept, velocity, dynOrient);
+
+	return swept.DetectCollision(statPoly, 
+		offset - displacement, 0.0, statOrient);
+}
+
+bool CollisionPolygon::DetectCollision(const CollisionPolygon* other,
 	const Point2D<double>& offset, 
 	double thisAngle, 
 	double otherAngle)
@@ -37,25 +90,25 @@ bool CollisionPolygon::DetectCollision(CollisionPolygon* other,
 	if (other == NULL)
 	{
 		throw GameException(GameExceptionNS::FATAL_ERROR,
-			"Attempted collision detection on NULL polygon pointer");
+			"Attempted collision detection on NULL polygon");
 	}
 
 	Vector2D distance = Vector2D(offset);
 
-	// Since the polygon's perspectives are mirrored,
-	// the first vertex of one edge goes with the second 
-	// of the other.
-	Edge thisEdge = GetEdge(distance, thisAngle);
-	Edge otherEdge = other->GetEdge(-distance, otherAngle);
+// Since the polygon's perspectives are mirrored,
+// the first vertex of one edge goes with the second 
+// of the other.
+Edge thisEdge = GetEdge(distance, thisAngle);
+Edge otherEdge = other->GetEdge(-distance, otherAngle);
 
-	return offset == Point2D<double>(0,0) ||
-		SAT(distance, thisEdge.first, otherEdge.second) ||
-		SAT(distance, thisEdge.second, otherEdge.first);
+return offset == Point2D<double>(0, 0) ||
+SAT(distance, thisEdge.first, otherEdge.second) ||
+SAT(distance, thisEdge.second, otherEdge.first);
 
 }
 
 CollisionPolygon::Edge CollisionPolygon::GetEdge(
-	Vector2D& offset, double angle)
+	Vector2D& offset, double angle) const
 {
 	Vector2D::SimplifyAngle(angle);
 
@@ -86,7 +139,7 @@ CollisionPolygon::Edge CollisionPolygon::GetEdge(
 			first = **(--itr);
 		}
 	}
-	
+
 	// Rotate the edge according the the argued angle 
 	first.rotate(angle);
 	second.rotate(angle);
@@ -94,15 +147,61 @@ CollisionPolygon::Edge CollisionPolygon::GetEdge(
 	return CollisionPolygon::Edge(first, second);
 }
 
-Point2D<double> CollisionPolygon::SweepPolygon(CollisionPolygon* swept,
-	const Vector2D& velocity)
+Point2D<double> CollisionPolygon::SweepPolygon(CollisionPolygon& swept,
+	const Vector2D& velocity,
+	double orient)
 {
 	// Translate all vertices in the same general direction (within HALF_PI inclusive) 
 	// as the velocity vector by half the velocity vector. Translate all vertices 
 	// in the opposite direction by half the negative velocity. Return half the
 	// velocity vector as the offset of the center.
 
-	return Point2D<double>(0, 0);
+	Point2D<double> displacement;
+
+	for (Vector2D* pVector : swept.m_vertices)
+	{
+		pVector->rotate(orient);
+
+		double angleDiff =
+			fabs(Vector2D::AngleDiff(pVector->GetAngle(), velocity.GetAngle()));
+
+		displacement = velocity.GetTerminal() * 0.5;
+
+		if (angleDiff <= HALF_PI)
+		{
+			*pVector = Vector2D(pVector->GetTerminal() + displacement);
+		}
+		else
+		{
+			*pVector = Vector2D(pVector->GetTerminal() - displacement);
+		}
+	}
+
+	return displacement;
+}
+
+bool CollisionPolygon::IsConvex() const
+{
+	std::set<Vector2D*, VectorPtrComp>::iterator itr = m_vertices.begin();
+	std::set<Vector2D*, VectorPtrComp>::iterator next = m_vertices.begin();
+	next++;
+	bool convex = true;
+	double angle = Vector2D::ComputeAngle((*itr++)->GetTerminal(),
+		(*next++)->GetTerminal());
+
+	while (next != m_vertices.end())
+	{
+		double nextAngle = Vector2D::ComputeAngle((*itr++)->GetTerminal(),
+			(*next++)->GetTerminal());
+
+		if (Vector2D::AngleDiff(angle, nextAngle) < 0)
+		{
+			throw GameException(GameExceptionNS::FATAL_ERROR,
+				"Non-convex collision polygon");
+		}
+	}
+
+	return true;
 }
 
 }

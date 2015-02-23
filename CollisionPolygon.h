@@ -33,6 +33,9 @@ public:
 
 	/** Constructs polygon using a vector of points centered at the origin **/
 	CollisionPolygon(const std::vector<Space::Point2D<double>>& vertices);
+	
+	/** Copy constructor **/
+	CollisionPolygon(const CollisionPolygon& other);
 	~CollisionPolygon();
 
 	/** 
@@ -40,7 +43,24 @@ public:
 	 * by the argued offset point. Returns true if there is overlap,
 	 * false if there is no overlap.
 	 */
-	bool DetectCollision(CollisionPolygon* other, 
+	static bool CollisionPolygon::DetectCollision(
+		const CollisionPolygon* firstPoly,
+		const CollisionPolygon* secondPoly,
+		const Space::Point2D<double>& offset,
+		const Space::Vector2D& firstVelocity,
+		const Space::Vector2D& secondVelocity,
+		double firstOrient,
+		double secondOrient);
+
+	static bool DetectCollision(const CollisionPolygon* dynPoly,
+		const CollisionPolygon* statPoly,
+		const Space::Point2D<double>& offset,
+		const Space::Vector2D& velocity,
+		double firstAngle,
+		double secondAngle);
+
+
+	bool DetectCollision(const CollisionPolygon* other, 
 		const Space::Point2D<double>& offset,
 		double thisAngle,
 		double otherAngle);
@@ -64,13 +84,14 @@ private:
 		checked for overlap with another. These correspond with
 		the edge along the line joining the centers of the two
 		polygons **/
-	Edge GetEdge(Space::Vector2D& offset, double angle);
+	Edge GetEdge(Space::Vector2D& offset, double angle) const;
 
-	/** Takes a velocity and collision polygon pointer, and it sweeps
-		the collision polygon along the argued vector Returns the offset
-		of the center caused by the sweep **/
-	Space::Point2D<double> SweepPolygon(CollisionPolygon* swept, 
-		const Space::Vector2D& velocity);
+	/** Takes a velocity and collision polygon pointer, and rotates by the
+		polygon's orientation and then sweeps the collision polygon along 
+		the argued vector. Returns the offset of the center caused by the sweep **/
+	static Space::Point2D<double> SweepPolygon(CollisionPolygon& swept, 
+		const Space::Vector2D& velocity,
+		double orientation);
 
 	/** Implementation of a simple separating axis algorithm **/
 	inline bool SAT(Space::Vector2D& axis, Space::Vector2D& a, 
@@ -79,6 +100,8 @@ private:
 		return ((axis.GetMagnitude() - axis.ProjLength(a) +
 			axis.ProjLength(b)) < 0);
 	}
+
+	bool IsConvex() const;
 };
 
 }

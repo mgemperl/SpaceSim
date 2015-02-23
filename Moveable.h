@@ -27,11 +27,25 @@ public:
 
 	inline virtual ClassType GetClass() const override { return MOVEABLE; }
 
-	virtual void PhysUpdate() override;
+	virtual void PhysUpdate() override
+	{
+		SetPosition(m_Velocity.GetTerminal(GetPos()));
+	}
 
-	Space::Point2D<double> GetInterpPos(double interpolation) const override;
+	virtual bool CollidesWith(Entity* other) override;
 
-	const Space::Vector2D& GetVelocity() const { return m_Velocity; }
+	Space::Point2D<double> GetInterpPos(double interpolation) const override
+	{
+		Space::Vector2D interpVec = Space::Vector2D(m_Velocity);
+		interpVec.scaleBy(interpolation);
+
+		return interpVec.GetTerminal() + GetPos();
+	}
+
+	Space::Vector2D GetVelocity() const override 
+	{ 
+		return m_Velocity; 
+	}
 
 	Space::Point2D<double> ProjectCollisionPointSimple(
 		const Space::Point2D<double>& collideePos, 
@@ -41,9 +55,25 @@ public:
 		const Space::Point2D<double>& collideePos,
 		double colliderSpeed) const override;
 
-	void SetVelocity(const Space::Vector2D& velocity);
-	void Accelerate(const Space::Vector2D& dV);
-	void Accelerate(const Space::Vector2D& dV, double maxSpeed);
+	void SetVelocity(const Space::Vector2D& velocity)
+	{
+		m_Velocity = velocity;
+	}
+
+	void Accelerate(const Space::Vector2D& dV)
+	{
+		m_Velocity += dV;
+	}
+
+	void Accelerate(const Space::Vector2D& dV, double maxSpeed)
+	{
+		m_Velocity += dV;
+
+		if (m_Velocity.GetSqrMagnitude() > maxSpeed * maxSpeed)
+		{
+			m_Velocity.scaleTo(maxSpeed);
+		}
+	}
 
 protected:
 
