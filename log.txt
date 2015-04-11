@@ -54,3 +54,36 @@ Worklog
 2015_02_16
 - Finished porting pretty much all code from my old engine (except guided projectiles, but that won't be too hard)
 - Added the background for sectors
+
+2015_03_17
+- Improved collision detection to use polygons instead of ellipses (still doesn't always detect collision for some reason)
+- Restructuring the implementation of projectiles to make guided projectiles easier to implement
+- Changing vessels and fleets to use new Controller objects instead of just an ai state -- should help separate distinct code 
+
+next:
+- Fix collision detection, has some occasional false negatives
+- Modify projectiles to use the Damager interface and override method for checking collision to work around the cast in Sector
+- Add Component abstract class to manage the position of components on vessels (have weaponslot extend it)
+
+2015_04_04
+- Attempted to implement an actual separating axis algorithm (I wasn't before) but now it doesn't seem detect collision at all
+
+next:
+- Fix collision detection
+- see 2015_03_17
+
+2015_04_09
+- Made a separate Clock class for handling the time; should make it more portable
+- Changed the Message Dispatcher class to work with time instead of ticks
+
+next: 
+- Fix collision detection (still)
+- Come up with good way to implement guided projectiles
+
+2015_04_10
+- Finally got collision detection working right, but it could still use some optimization 
+- Also got guided projectiles working again
+
+next:
+- Start working on some gui and hud code
+- Fleet formations and sector entry/exit warp would be neat

@@ -1,228 +1,172 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Drawable.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SpaceSim.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureManager.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="WinMain.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2D.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="EntityManager.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="MessageDispatcher.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Universe.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Fleet.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Sector.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="CelestialBody.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="System.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Moveable.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Vessel.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="ShipAI.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="AIState.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="AIShipManeuverStates.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="AIShipOrderStates.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Projectile.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="TurretStates.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="WeaponSlot.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="VesselController.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Background.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionPolygon.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Damager.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Data.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Drawable.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="GameException.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="SpaceSim.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureManager.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Point2D.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2D.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityManager.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MessageDispatcher.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="StateMachine.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Universe.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Fleet.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Sector.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="CelestialBody.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="System.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Moveable.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Vessel.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="ShipAI.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="AIState.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="AIShipManeuverStates.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="AIShipOrderStates.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Projectile.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="TurretStates.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="WeaponSlot.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Controller.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="VesselController.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Background.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Damager.h">
-      <Filter>Headers</Filter>
+    <ClInclude Include="Source\Drawable.h">
+      <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionPolygon.h">
-      <Filter>Headers</Filter>
+    <ClInclude Include="Source\Game.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameException.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TextureManager.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CollisionPolygon.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Point2D.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Vector2D.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Data.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Background.h">
+      <Filter>Game\Entites</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CelestialBody.h">
+      <Filter>Game\Entites</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Controller.h">
+      <Filter>Game\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EntityManager.h">
+      <Filter>Game\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Fleet.h">
+      <Filter>Game\Organization</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameState.h">
+      <Filter>Game\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MessageDispatcher.h">
+      <Filter>Game\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player.h">
+      <Filter>Game\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Projectile.h">
+      <Filter>Game\Entites</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Sector.h">
+      <Filter>Game\Organization</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ShipAI.h">
+      <Filter>Game\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SpaceSim.h">
+      <Filter>Game\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\State.h">
+      <Filter>Game\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StateMachine.h">
+      <Filter>Game\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\System.h">
+      <Filter>Game\Organization</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AIShipManeuverStates.h">
+      <Filter>Game\Controllers\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AIShipOrderStates.h">
+      <Filter>Game\Controllers\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AIState.h">
+      <Filter>Game\Controllers\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TurretStates.h">
+      <Filter>Game\Controllers\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Damager.h">
+      <Filter>Game\Entites\Abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity.h">
+      <Filter>Game\Entites\Abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Moveable.h">
+      <Filter>Game\Entites\Abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WeaponSlot.h">
+      <Filter>Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Vessel.h">
+      <Filter>Game\Entites</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Universe.h">
+      <Filter>Game\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\VesselController.h">
+      <Filter>Game\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Clock.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuidedProjectile.h">
+      <Filter>Game\Entites</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuidanceStates.h">
+      <Filter>Game\Controllers\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuidedProjectileAI.h">
+      <Filter>Game\Controllers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Headers">
-      <UniqueIdentifier>{7955dc7d-c2c9-4cfc-9ca9-fda223e7579d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source">
-      <UniqueIdentifier>{eda0e188-a240-4336-99c6-79b3bb864b27}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Textures">
       <UniqueIdentifier>{8d44be1e-fd18-48ff-b917-29e35b4bb990}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{8fb93fce-d92a-4a57-b16e-67a5c8308388}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{bb4d46f5-53cc-430c-9163-e1c20aaa6634}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{056931c5-2217-40b1-9b17-562736a9372a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{18f78bdf-ba6b-4684-a8bf-71f0c8c5674f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Entites">
+      <UniqueIdentifier>{1b34f02d-6912-41f8-9ae8-b9ca1cd48716}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Components">
+      <UniqueIdentifier>{37cb895d-fdf5-4749-914e-e78d59bb4db2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Controllers">
+      <UniqueIdentifier>{aca2f74f-5a91-4f93-9469-1682188b2bd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Management">
+      <UniqueIdentifier>{30cd538c-8335-4859-8c05-52f62ea00dc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Organization">
+      <UniqueIdentifier>{a4ec3833-8423-4d83-9f38-e1a44f6514f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\State">
+      <UniqueIdentifier>{6632192f-4464-4839-b621-049add0958c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Controllers\AI">
+      <UniqueIdentifier>{d7f6beb9-80bd-491e-a8ba-400a9887469c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Entites\Abstract">
+      <UniqueIdentifier>{279cad60-4464-4581-95b4-b2224aa31249}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -267,5 +211,115 @@
     <ResourceCompile Include="SpaceSim.rc">
       <Filter>Resources</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="log.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Drawable.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Input.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TextureManager.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WinMain.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CollisionPolygon.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Vector2D.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Background.cpp">
+      <Filter>Game\Entites</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CelestialBody.cpp">
+      <Filter>Game\Entites</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EntityManager.cpp">
+      <Filter>Game\Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Fleet.cpp">
+      <Filter>Game\Organization</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameState.cpp">
+      <Filter>Game\Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MessageDispatcher.cpp">
+      <Filter>Game\Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player.cpp">
+      <Filter>Game\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Projectile.cpp">
+      <Filter>Game\Entites</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Sector.cpp">
+      <Filter>Game\Organization</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ShipAI.cpp">
+      <Filter>Game\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SpaceSim.cpp">
+      <Filter>Game\Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\System.cpp">
+      <Filter>Game\Organization</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AIShipManeuverStates.cpp">
+      <Filter>Game\Controllers\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AIState.cpp">
+      <Filter>Game\Controllers\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TurretStates.cpp">
+      <Filter>Game\Controllers\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Damager.cpp">
+      <Filter>Game\Entites\Abstract</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity.cpp">
+      <Filter>Game\Entites\Abstract</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Moveable.cpp">
+      <Filter>Game\Entites\Abstract</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WeaponSlot.cpp">
+      <Filter>Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Vessel.cpp">
+      <Filter>Game\Entites</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Universe.cpp">
+      <Filter>Game\Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\VesselController.cpp">
+      <Filter>Game\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AIShipOrderStates.cpp">
+      <Filter>Game\Controllers\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Clock.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GuidedProjectile.cpp">
+      <Filter>Game\Entites</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GuidanceStates.cpp">
+      <Filter>Game\Controllers\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GuidedProjectileAI.cpp">
+      <Filter>Game\Controllers</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
