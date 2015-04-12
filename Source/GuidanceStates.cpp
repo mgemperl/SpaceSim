@@ -1,4 +1,7 @@
 #include "GuidanceStates.h"
+#include "Vector2D.h"
+
+using namespace Space;
 
 namespace SpaceSimNS
 {

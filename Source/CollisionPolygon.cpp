@@ -254,6 +254,8 @@ bool CollisionPolygon::IsConvex() const
 			throw GameException(GameExceptionNS::FATAL_ERROR,
 				"Non-convex collision polygon");
 		}
+
+		angle = nextAngle;
 	}
 
 	return true;

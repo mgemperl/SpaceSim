@@ -16,7 +16,7 @@ class Vessel : public Moveable
 {
 public:
 
-	Vessel(const ShipDef& pDefinition,
+	Vessel(const char* defName,
 		Faction allegience,
 		VesselController* pCont);
 
@@ -104,6 +104,7 @@ public:
 
 private:
 
+	const ShipDef* m_pDef;
 	ShipStats m_Stats;
 	double m_TurnWidth;
 
@@ -116,12 +117,11 @@ private:
 
 	UINT GetSumCooldown() const;
 
-	ShipClass m_ShipClass;
-	const char* m_textureName;
+	//ShipClass m_ShipClass;
+	//const char* m_textureName;
 
 	const Vessel* m_pTarget;
 
-	
 	void UpdateTargetInFiringRange();
 
 	bool m_TargetInFiringRange;

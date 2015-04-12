@@ -13,7 +13,7 @@ class GuidedProjectile : public Vessel, Damager
 public:
 
 	GuidedProjectile(
-		const ShipDef& shipDef,
+		const char* defName,
 		Faction inAllegience,
 		const Space::Point2D<double>& inPos,
 		const Space::Vector2D& inVelocity,

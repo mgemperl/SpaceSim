@@ -13,6 +13,7 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 #include "Data.h"
+#include "Point2D.h"
 #include "GameException.h"
 #include <unordered_map>
 
@@ -39,6 +40,7 @@ private:
     D3DPRESENT_PARAMETERS m_d3dpp;
     D3DDISPLAYMODE pMode;
 	LP_SPRITE m_pSprite;
+	ID3DXLine* m_pPolygon;	// Not guaranteed to be on a single plane
 
     // other variables
     HRESULT     m_Result;         // standard Windows return codes
@@ -105,6 +107,8 @@ public:
 	//		data.rect.bottom must be bottom edge + 1
 	//=====================================================================
 	void DrawSprite(const SpriteData& data, COLOR_ARGB color);
+
+	void DrawPolygon(const std::vector<Space::Point2D<float>>& vertices, COLOR_ARGB color);
 
     // Display the offscreen backbuffer to the screen.
     HRESULT ShowBackbuffer();
@@ -176,6 +180,16 @@ public:
 	void SpriteEnd()
 	{
 		m_pSprite->End();
+	}
+
+	void PolygonBegin()
+	{
+		m_pPolygon->Begin();
+	}
+
+	void PolygonEnd()
+	{
+		m_pPolygon->End();
 	}
 };
 

@@ -5,6 +5,7 @@
 #include "WeaponSlot.h"
 #include "Data.h"
 #include "EntityManager.h"
+#include "DefinitionManager.h"
 #include <vector>
 
 using namespace Space;
@@ -12,13 +13,13 @@ using namespace Space;
 namespace SpaceSimNS
 {
 
-Vessel::Vessel(const ShipDef& pDef, Faction allegience, VesselController* pCont) :
+Vessel::Vessel(const char* defName, Faction allegience, VesselController* pCont) :
 	Moveable(Point2D<double>(0, 0), allegience)
 {
-	m_Stats = pDef.stats;
-	m_TurnWidth = pDef.stats.turnRate;
-	m_ShipClass = pDef.shipClass;
-	m_textureName = pDef.texture;
+	const ShipDef* def = DefinitionManager::Instance()->GetShipDef(defName);
+	m_pDef = def;
+	m_Stats = def->stats;
+	m_TurnWidth = def->stats.turnRate;
 	actions.fill(false);
 
 	m_pController = pCont;
@@ -36,9 +37,9 @@ Vessel::Vessel(const ShipDef& pDef, Faction allegience, VesselController* pCont)
 	m_pTarget = NULL;
 	justTargeted = false;
 
-	for (int itr = 0; itr < pDef.weapSlots.size(); itr++)
+	for (int itr = 0; itr < def->weapSlots.size(); itr++)
 	{
-		m_Weapons.emplace_back(new WeaponSlot(pDef.weapSlots[itr], this));
+		m_Weapons.emplace_back(new WeaponSlot(def->weapSlots[itr], this));
 	}
 
 	m_NextToFire = 0;
@@ -63,7 +64,7 @@ Vessel::~Vessel()
 
 bool Vessel::InitializeDrawable(Graphics* pGraphics)
 {
-	bool success = Entity::InitializeDrawable(pGraphics, m_textureName);
+	bool success = Entity::InitializeDrawable(pGraphics, m_pDef->texture);
 
 	for (int index = 0; index < m_Weapons.size() && success; index++)
 	{
@@ -105,7 +106,7 @@ inline ClassType Vessel::GetClass() const
 
 ShipClass Vessel::GetShipClass() const
 {
-	return m_ShipClass;
+	return m_pDef->shipClass;
 }
 
 ShipStats Vessel::GetStats() const
@@ -291,11 +292,11 @@ bool Vessel::operator<(const Vessel& other) const
 {
 	bool comp = false;
 	
-	if (m_ShipClass < other.m_ShipClass)
+	if (m_pDef->shipClass < other.m_pDef->shipClass)
 	{
 		comp = true;
 	}
-	else if (((m_ShipClass == other.m_ShipClass) && 
+	else if (((m_pDef->shipClass == other.m_pDef->shipClass) && 
 		     ((m_Stats.maxHull + m_Stats.maxShield) < 
 			  (other.m_Stats.maxHull + other.m_Stats.maxShield))))
 	{
@@ -448,11 +449,11 @@ void Vessel::TurnAround()
 
 	if (crossProduct > 0)
 	{
-		Turn(m_Stats.turnRate);
+		Turn(m_TurnWidth);
 	}
 	else
 	{
-		Turn(-m_Stats.turnRate);
+		Turn(-m_TurnWidth);
 	}
 	
 }
@@ -608,14 +609,14 @@ bool Vessel::TurnTo(double theta)
 		DoAction(TURNCW);
 	}
 
-	SetTurnWidth(Vector2D::AngleDiff(GetOrientationRad(), theta));
+	SetTurnWidth(fabs(Vector2D::AngleDiff(GetOrientationRad(), theta)));
 
 	return Facing(theta);
 }
 
 bool Vessel::MoveToward(const Moveable* moveable)
 {
-	return MoveToward(moveable->ProjectCollisionPointSimple(GetPos(), GetStats().maxSpeed * 2));
+	return MoveToward(moveable->ProjectCollisionPoint(GetPos(), GetStats().maxSpeed * 2));
 }
 
 bool Vessel::MoveToward(const Entity* entity)
@@ -625,7 +626,8 @@ bool Vessel::MoveToward(const Entity* entity)
 
 bool Vessel::MoveToward(const Space::Point2D<double>& dest)
 {
-	return MoveToward(Space::Vector2D::ComputeAngle(GetPos(), dest), GetPos().SqrDistance(dest));
+	return MoveToward(Space::Vector2D::ComputeAngle(GetPos(), dest),
+		GetPos().SqrDistance(dest));
 }
 
 bool Vessel::MoveToward(double theta)
@@ -636,7 +638,7 @@ bool Vessel::MoveToward(double theta)
 	TurnTo(dir);
 
 	// If the vessel is facing the m_pTarget's general direction, accelerate.
-	if (sin(GetOrientationRad() - dir + HALF_PI) > 0)
+	if (abs(Vector2D::AngleDiff(GetOrientationRad(), dir))) 
 	{
 		DoAction(ACCEL);
 	}
@@ -650,14 +652,16 @@ bool Vessel::MoveToward(double theta)
 
 bool Vessel::MoveToward(double theta, double sqrDist)
 {
-	double sin = std::sin(Vector2D::SimplifyAngle(theta - GetVelocity().GetAngle()));
-	double sign = ((sin < 0) ? -1.0 : 1.0);
-	
-	double dir = theta + QUARTER_PI * sin + (sign * QUARTER_PI / (std::log(sqrDist)));
+	double diff = Vector2D::AngleDiff(GetVelocity().GetAngle(), theta);
+	double sign = diff > 0 ? 1.0 : -1.0;
+	double dir = theta + QUARTER_PI * (diff / PI);
+	double add = (sign * QUARTER_PI / std::fmin(1.0, std::log(sqrDist) * 4));
+	dir += add;
+
 	TurnTo(dir);
 
 	// If the vessel is facing the m_pTarget's general direction, accelerate.
-	if (std::sin(GetOrientationRad() - dir + HALF_PI) > 0)
+	if (abs(Vector2D::AngleDiff(GetOrientationRad(), dir)) < HALF_PI)
 	{
 		DoAction(ACCEL);
 	}

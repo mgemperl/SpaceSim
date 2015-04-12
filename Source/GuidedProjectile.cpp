@@ -7,14 +7,14 @@ namespace SpaceSimNS
 {
 
 	GuidedProjectile::GuidedProjectile(
-		const ShipDef& shipDef,
+		const char* defName,
 		Faction inAllegience,
 		const Space::Point2D<double>& inPos,
 		const Space::Vector2D& inVel,
 		const WeapDef& projDef,
 		GuidedProjectileAI* pCont,
 		const Vessel* pTarget):
-Vessel(shipDef, inAllegience, pCont),
+Vessel(defName, inAllegience, pCont),
 Damager(projDef)
 {
 		SetPosition(inPos);

@@ -87,3 +87,10 @@ next:
 next:
 - Start working on some gui and hud code
 - Fleet formations and sector entry/exit warp would be neat
+
+2015_04_11
+- Implemented a line-drawing class, starting on a polygon drawing class (maybe have line extend it)
+- Improved guided projectile homing, still could use some work though
+
+2015_04_12
+- Further improved guided projectile homing, but need to fix the "jiggle" bug

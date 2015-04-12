@@ -205,14 +205,6 @@ namespace SpaceSimNS
 		MASSIVE = 4
 	};
 
-	struct Definitions
-	{
-		// Where the keys are the definitions' names
-		std::unordered_map<const char*, ShipDef> shipDefs;
-		std::unordered_map<const char*, CompDef> compDefs;
-		std::unordered_map<const char*, WeapDef> weapDefs;
-	};
-
 	// Ship weapon definition
 	struct WeapDef
 	{

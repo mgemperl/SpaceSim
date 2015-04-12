@@ -45,11 +45,11 @@ public:
 		return m_Velocity; 
 	}
 
-	Space::Point2D<double> ProjectCollisionPointSimple(
+	Space::Point2D<double> ProjectCollisionPoint(
 		const Space::Point2D<double>& collideePos, 
 		double colliderSpeed) const override;
 
-	Space::Point2D<double> ProjectCollisionPoint(
+	Space::Point2D<double> ProjectCollisionPointAdv(
 		const Space::Point2D<double>& collideePos,
 		double colliderSpeed) const override;
 
@@ -63,15 +63,7 @@ public:
 		m_Velocity += dV;
 	}
 
-	void Accelerate(const Space::Vector2D& dV, double maxSpeed)
-	{
-		m_Velocity += dV;
-
-		if (m_Velocity.GetSqrMagnitude() > maxSpeed * maxSpeed)
-		{
-			m_Velocity.scaleTo(maxSpeed);
-		}
-	}
+	void Accelerate(const Space::Vector2D& dV, double maxSpeed);
 
 protected:
 

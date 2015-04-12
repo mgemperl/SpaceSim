@@ -67,9 +67,6 @@
     <ClInclude Include="Source\ShipAI.h">
       <Filter>Game\Controllers</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SpaceSim.h">
-      <Filter>Game\Management</Filter>
-    </ClInclude>
     <ClInclude Include="Source\State.h">
       <Filter>Game\State</Filter>
     </ClInclude>
@@ -123,6 +120,18 @@
     </ClInclude>
     <ClInclude Include="Source\GuidedProjectileAI.h">
       <Filter>Game\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DefinitionManager.h">
+      <Filter>Game\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SpaceSim.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DrawableLine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DrawablePolygon.h">
+      <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -270,9 +279,6 @@
     <ClCompile Include="Source\ShipAI.cpp">
       <Filter>Game\Controllers</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SpaceSim.cpp">
-      <Filter>Game\Management</Filter>
-    </ClCompile>
     <ClCompile Include="Source\System.cpp">
       <Filter>Game\Organization</Filter>
     </ClCompile>
@@ -320,6 +326,18 @@
     </ClCompile>
     <ClCompile Include="Source\GuidedProjectileAI.cpp">
       <Filter>Game\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DefinitionManager.cpp">
+      <Filter>Game\Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SpaceSim.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DrawableLine.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DrawablePolygon.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

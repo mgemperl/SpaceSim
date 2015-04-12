@@ -101,7 +101,10 @@
     <ClInclude Include="Source\Controller.h" />
     <ClInclude Include="Source\Damager.h" />
     <ClInclude Include="Source\Data.h" />
+    <ClInclude Include="Source\DefinitionManager.h" />
     <ClInclude Include="Source\Drawable.h" />
+    <ClInclude Include="Source\DrawableLine.h" />
+    <ClInclude Include="Source\DrawablePolygon.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\Fleet.h" />
@@ -161,7 +164,10 @@
     <ClCompile Include="Source\Clock.cpp" />
     <ClCompile Include="Source\CollisionPolygon.cpp" />
     <ClCompile Include="Source\Damager.cpp" />
+    <ClCompile Include="Source\DefinitionManager.cpp" />
     <ClCompile Include="Source\Drawable.cpp" />
+    <ClCompile Include="Source\DrawableLine.cpp" />
+    <ClCompile Include="Source\DrawablePolygon.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\Fleet.cpp" />

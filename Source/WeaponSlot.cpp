@@ -12,9 +12,6 @@
 
 #define SPREAD 0.015
 
-#define MISSILE_DEF ShipDef("boom", "missile", MISSILE, \
-	ShipStats(100, 100, 100, 100, 0.5, 0, 0, 0.2, 20, 0, 0), PLAYERFACTION)
-
 using namespace Space;
 
 namespace SpaceSimNS
@@ -152,9 +149,10 @@ bool WeaponSlot::IsInArc(const Entity* pEntity) const
 		{
 			double facing = m_DefaultFacing + m_pShip->GetOrientationRad();
 			double targetAngle = Vector2D::ComputeAngle(GetPos(),
-				pEntity->ProjectCollisionPointSimple(GetPos(), m_WeapDef.speed));
+				pEntity->ProjectCollisionPoint(GetPos(), m_WeapDef.speed));
 
-			isInArc = Vector2D::AngleDiff(facing, targetAngle) <= m_FiringArc / 2.0;
+			isInArc = fabs(Vector2D::AngleDiff(facing, targetAngle)) <= 
+				m_FiringArc / 2.0;
 		}
 		else
 		{
@@ -189,7 +187,8 @@ void WeaponSlot::UpdateRangeArcAim()
 		if (m_TargetInRange && m_TargetInArc)
 		{
 			m_AimReady = ((m_WeapDef.isGuided) ||
-				(Vector2D::AngleDiff(GetOrientationRad(), m_TargetAngle) <= (m_BufferArc / 2.0 + THETA_E)));
+				(fabs(Vector2D::AngleDiff(GetOrientationRad(), m_TargetAngle)) <= 
+				(m_BufferArc / 2.0 + THETA_E)));
 		}
 	}
 }
@@ -251,10 +250,11 @@ void WeaponSlot::FireGuided()
 	{
 
 		GuidedProjectile* proj = new GuidedProjectile(
-			MISSILE_DEF,
+			"boom",
 			m_pShip->GetAllegience(),
 			GetPos(),
-			Vector2D(GetOrientationRad() + RANDSIGN * RANDOM * SPREAD, m_WeapDef.speed),
+			Vector2D(GetOrientationRad() + RANDSIGN * RANDOM * SPREAD, 
+				m_WeapDef.speed) + m_pShip->GetVelocity(),
 			m_WeapDef,
 			new GuidedProjectileAI(),
 			m_pTarget);
@@ -268,7 +268,8 @@ void WeaponSlot::FireGuided()
 
 void WeaponSlot::SetFacing(double theta)
 {
-	if (Vector2D::AngleDiff(theta, m_DefaultFacing) < (m_FiringArc / 2.0 + THETA_E))
+	if (fabs(Vector2D::AngleDiff(theta, m_DefaultFacing)) < 
+		(m_FiringArc / 2.0 + THETA_E))
 	{
 		m_RelativeFacing = Vector2D::SimplifyAngle(theta);
 	}
@@ -278,7 +279,8 @@ void WeaponSlot::TurnFacing(double dTheta)
 {
 	double neoFacing = m_RelativeFacing + dTheta;
 
-	if (Vector2D::AngleDiff(neoFacing, m_DefaultFacing) < (m_FiringArc / 2.0 + THETA_E))
+	if (fabs(Vector2D::AngleDiff(neoFacing, m_DefaultFacing)) < 
+		(m_FiringArc / 2.0 + THETA_E))
 	{
 		m_RelativeFacing = Vector2D::SimplifyAngle(m_RelativeFacing + dTheta);
 	}
@@ -349,7 +351,7 @@ bool WeaponSlot::Facing(const Space::Point2D<double>& point) const
 
 bool WeaponSlot::Facing(double theta) const
 {
-	return (Vector2D::AngleDiff(GetOrientationRad(), theta) <= m_TurnRate);
+	return (fabs(Vector2D::AngleDiff(GetOrientationRad(), theta)) <= m_TurnRate);
 }
 
 bool WeaponSlot::TurnTo(const Entity* entity)
@@ -364,25 +366,28 @@ bool WeaponSlot::TurnTo(const Space::Point2D<double>& point)
 
 bool WeaponSlot::TurnTo(double theta)
 {
-	double diff = Vector2D::AngleDiff(GetOrientationRad(), theta);
-	double cross;
+	double diff;
 
+	// If the target exists and is in the weapon slot's firing arc, turn toward the
+	// target. Otherwise, turn toward the weapon slot's default facing.
 	if (m_TargetInArc || (m_pTarget == nullptr))
 	{
-		cross = Space::Vector2D(GetOrientationRad(), 1).cross(Space::Vector2D(theta, 1));
+		diff = Vector2D::AngleDiff(GetOrientationRad(), theta);
 	}
 	else
 	{
-		cross = Space::Vector2D(m_pShip->GetOrientationRad() + m_DefaultFacing, 1).cross(Space::Vector2D(theta, 1));
+		diff = Vector2D::AngleDiff(GetOrientationRad(),
+			m_pShip->GetOrientationRad() + m_DefaultFacing);
 	}
 	
-	if (diff < m_TurnRate)
+	// Do the actual turning
+	if (fabs(diff) < m_TurnRate)
 	{
-		TurnFacing(diff * ((cross < 0) ? -1.0 : 1.0));
+		TurnFacing(diff);
 	}
 	else
 	{
-		if (cross < 0)
+		if (diff < 0)
 		{
 			TurnFacing(-m_TurnRate);
 		}

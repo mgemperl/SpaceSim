@@ -220,7 +220,7 @@ public:
 	// entity at the argued position with the argued speed to collide 
 	// with this entity
 	// Meant to be overridden by moveable derivatives of Entity
-	virtual Space::Point2D<double> ProjectCollisionPointSimple(
+	virtual Space::Point2D<double> ProjectCollisionPoint(
 		const Space::Point2D<double>& colliderPos,
 		double colliderSpeed) const
 	{
@@ -230,7 +230,7 @@ public:
 	// More accurate prediction of a possible collision point for an
 	// entity with the argued position and speed to collide with this one
 	// Meant to be overridden by moveable derivatives of Entity
-	virtual Space::Point2D<double> ProjectCollisionPoint(
+	virtual Space::Point2D<double> ProjectCollisionPointAdv(
 		const Space::Point2D<double>& colliderPos,
 		double colliderSpeed) const
 	{

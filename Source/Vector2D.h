@@ -259,7 +259,7 @@ public:
 	inline static double AngleDiff(double theta1, double theta2)
 	{
 		double diff = SimplifyAngle(theta1 - theta2);
-		return diff > PI ? (TWO_PI - diff) : diff;
+		return (diff > PI ? TWO_PI - diff : -diff);
 	}
 
 	/**

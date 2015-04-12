@@ -3,6 +3,8 @@
 #include "Graphics.h"
 #include "TextureManager.h"
 
+using namespace Space;
+
 //=============================================================================
 // Constructor
 //=============================================================================
@@ -88,6 +90,14 @@ void Graphics::Initialize(HWND hw, int w, int h, bool full)
 	if (FAILED(m_Result))
 	{
 		throw GameException(GameExceptionNS::FATAL_ERROR, "Error creating Direct3D sprite");
+	}
+
+	m_Result = D3DXCreateLine(m_Device3D, &m_pPolygon);
+
+	if (FAILED(m_Result))
+	{
+		throw GameException(GameExceptionNS::FATAL_ERROR,
+			"Error creating Direct3D line");
 	}
 		
 }
@@ -229,6 +239,25 @@ void Graphics::DrawSprite(const SpriteData& data, COLOR_ARGB color)
 		m_pSprite->SetTransform(&matrix);
 		m_pSprite->Draw(data.texture, &data.rect, NULL, NULL, color);
 	}
+}
+
+void Graphics::DrawPolygon(const std::vector<Point2D<float>>& vertices,
+	COLOR_ARGB color)
+{
+	// WARNING: Crazy C-style stuff ahead
+	D3DXVECTOR2* pVertices = (D3DXVECTOR2*)malloc(
+		sizeof(D3DXVECTOR2) * vertices.size());
+
+	D3DXVECTOR2* pVertex = pVertices;
+	for (Point2D<float> point : vertices)
+	{
+		*pVertex++ = D3DXVECTOR2(point.GetX(), point.GetY());
+	}
+	pVertex = NULL;
+
+	m_pPolygon->Draw(pVertices, vertices.size(), color);
+
+	free(pVertices);
 }
 
 //=============================================================================
