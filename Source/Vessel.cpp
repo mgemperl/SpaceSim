@@ -637,7 +637,7 @@ bool Vessel::MoveToward(double theta)
 
 	TurnTo(dir);
 
-	// If the vessel is facing the m_pTarget's general direction, accelerate.
+	// If the vessel is facing the target's general direction, accelerate.
 	if (abs(Vector2D::AngleDiff(GetOrientationRad(), dir))) 
 	{
 		DoAction(ACCEL);
@@ -654,9 +654,9 @@ bool Vessel::MoveToward(double theta, double sqrDist)
 {
 	double diff = Vector2D::AngleDiff(GetVelocity().GetAngle(), theta);
 	double sign = diff > 0 ? 1.0 : -1.0;
-	double dir = theta + QUARTER_PI * (diff / PI);
-	double add = (sign * QUARTER_PI / std::fmin(1.0, std::log(sqrDist) * 4));
-	dir += add;
+	double dir = theta + QUARTER_PI * sign * std::pow((std::abs(diff) / PI), 0.2);
+	//double add = (/*sign **/ (diff / PI) * QUARTER_PI / std::fmin(1.0, std::log(sqrDist) * 4));
+	//dir += add;
 
 	TurnTo(dir);
 

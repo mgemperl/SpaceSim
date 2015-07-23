@@ -85,6 +85,13 @@ void Entity::Update(double deltaT)
 	}
 }
 
+bool Entity::CanCollide(const Entity& other) const
+{
+	// TODO: Implement this to check if collision is possible using polygons' max vertices
+	// Maybe override in children to check if it's hostile or whatever
+	//m_pPolygon->
+}
+
 bool Entity::IsHostile(const Entity* entity) const
 {
 	bool isHostile = false;
@@ -103,14 +110,16 @@ bool Entity::IsHostile(const Entity* entity) const
 
 bool Entity::CollidesWith(const Entity* other) const
 {
-	return CollisionPolygon::DetectCollision(
+	return CanCollide(*other) ?
+		CollisionPolygon::DetectCollision(
 		*m_pPolygon,
 		*other->m_pPolygon,
 		other->m_position - m_position,
 		GetVelocity(),
 		other->GetVelocity(),
 		m_dOrientation,
-		other->m_dOrientation);
+		other->m_dOrientation) :
+		false;
 }
 
 void Entity::Render(float interpolation, Point2D<double>& offset)

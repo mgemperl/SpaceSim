@@ -240,8 +240,12 @@ public:
 	// Renders this entity using its inherited drawable methods
 	virtual void Render(float interpolation, Space::Point2D<double>& offset);
 
+	virtual bool CanCollide(const Entity& other) const;
+
 	// Compares entities by ship class
 	bool operator<(const Entity& other) const;
+
+
 
 
 protected:
