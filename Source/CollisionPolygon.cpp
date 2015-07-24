@@ -53,7 +53,7 @@ CollisionPolygon::~CollisionPolygon()
 
 void CollisionPolygon::IdentifyMinMax()
 {
-	for (const Vector2D* vector : m_vertices)
+	for (Vector2D* vector : m_vertices)
 	{
 		// Assign min and max values
 		if (m_min == NULL)
@@ -292,6 +292,18 @@ bool CollisionPolygon::IsConvex() const
 	}
 
 	return true;
+}
+
+bool CollisionPolygon::OverlapPossible(CollisionPolygon* first, 
+	CollisionPolygon* second, 
+	Vector2D* firstVel,
+	Vector2D* secondVel,
+	const Point2D<double>& offset) 
+{
+	// TODO: Make it take velocity into account. Also, get rid of the other overlap possiblity checker in I forget where.
+	return first->m_max->GetMagnitude() + 
+		second->m_max->GetMagnitude() <=
+		std::fmin(offset.GetX(), offset.GetY());
 }
 
 }

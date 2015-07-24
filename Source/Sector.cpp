@@ -76,7 +76,7 @@ void Sector::ConstUpdate()
 		pEntity->ConstUpdate();
 	}
 
-	//HandleCollisions();
+	HandleCollisions();
 }
 
 void Sector::HandleCollisions()

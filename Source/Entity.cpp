@@ -85,11 +85,20 @@ void Entity::Update(double deltaT)
 	}
 }
 
-bool Entity::CanCollide(const Entity& other) const
+bool Entity::CanCollide(const Entity* other) const
 {
-	// TODO: Implement this to check if collision is possible using polygons' max vertices
 	// Maybe override in children to check if it's hostile or whatever
-	//m_pPolygon->
+
+	if (GetPos().Distance(other->GetPos()) <= sqrt(
+		m_pPolygon->GetMaxVertex()->GetSqrMagnitude() +
+		other->m_pPolygon->GetMaxVertex()->GetSqrMagnitude()))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 bool Entity::IsHostile(const Entity* entity) const
@@ -110,7 +119,7 @@ bool Entity::IsHostile(const Entity* entity) const
 
 bool Entity::CollidesWith(const Entity* other) const
 {
-	return CanCollide(*other) ?
+	return CanCollide(other) ?
 		CollisionPolygon::DetectCollision(
 		*m_pPolygon,
 		*other->m_pPolygon,
