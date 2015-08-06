@@ -85,6 +85,22 @@ void Entity::Update(double deltaT)
 	}
 }
 
+bool Entity::CanCollide(const Entity* other) const
+{
+	// Maybe override in children to check if it's hostile or whatever
+
+	if (GetPos().Distance(other->GetPos()) <= sqrt(
+		m_pPolygon->GetMaxVertex()->GetSqrMagnitude() +
+		other->m_pPolygon->GetMaxVertex()->GetSqrMagnitude()))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 bool Entity::IsHostile(const Entity* entity) const
 {
 	bool isHostile = false;
@@ -103,14 +119,16 @@ bool Entity::IsHostile(const Entity* entity) const
 
 bool Entity::CollidesWith(const Entity* other) const
 {
-	return CollisionPolygon::DetectCollision(
+	return CanCollide(other) ?
+		CollisionPolygon::DetectCollision(
 		*m_pPolygon,
 		*other->m_pPolygon,
 		other->m_position - m_position,
 		GetVelocity(),
 		other->GetVelocity(),
 		m_dOrientation,
-		other->m_dOrientation);
+		other->m_dOrientation) :
+		false;
 }
 
 void Entity::Render(float interpolation, Point2D<double>& offset)

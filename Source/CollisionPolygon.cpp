@@ -11,6 +11,8 @@ namespace SpaceSimNS
 CollisionPolygon::CollisionPolygon(const std::vector<Point2D<double>>& vertices)
 {
 	m_vertices.clear();
+	m_min = NULL;
+	m_max = NULL;
 
 	for (const Point2D<double>& point : vertices)
 	{
@@ -22,24 +24,55 @@ CollisionPolygon::CollisionPolygon(const std::vector<Point2D<double>>& vertices)
 		m_vertices.emplace(new Vector2D(vector));
 	}
 
+	IdentifyMinMax();
 	IsConvex();
 }
 
 CollisionPolygon::CollisionPolygon(const CollisionPolygon& other)
 {
+	m_min = NULL;
+	m_max = NULL;
+
 	for (Vector2D* vector : other.m_vertices)
 	{
 		m_vertices.emplace(new Vector2D(*vector));
 	}
 
+	IdentifyMinMax();
 	IsConvex();
 }
+
 
 CollisionPolygon::~CollisionPolygon()
 {
 	for (Vector2D* vector : m_vertices)
 	{
 		delete vector;
+	}
+}
+
+void CollisionPolygon::IdentifyMinMax()
+{
+	for (Vector2D* vector : m_vertices)
+	{
+		// Assign min and max values
+		if (m_min == NULL)
+		{
+			m_min = vector;
+			m_max = vector;
+		}
+		else
+		{
+			if (vector->GetSqrMagnitude() < m_min->GetSqrMagnitude())
+			{
+				m_min = vector;
+			}
+
+			if (vector->GetSqrMagnitude() > m_max->GetSqrMagnitude())
+			{
+				m_max = vector;
+			}
+		}
 	}
 }
 
@@ -259,6 +292,18 @@ bool CollisionPolygon::IsConvex() const
 	}
 
 	return true;
+}
+
+bool CollisionPolygon::OverlapPossible(CollisionPolygon* first, 
+	CollisionPolygon* second, 
+	Vector2D* firstVel,
+	Vector2D* secondVel,
+	const Point2D<double>& offset) 
+{
+	// TODO: Make it take velocity into account. Also, get rid of the other overlap possiblity checker in I forget where.
+	return first->m_max->GetMagnitude() + 
+		second->m_max->GetMagnitude() <=
+		std::fmin(offset.GetX(), offset.GetY());
 }
 
 }

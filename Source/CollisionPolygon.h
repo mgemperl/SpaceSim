@@ -67,6 +67,16 @@ public:
 		const Space::Point2D<double>& offset,
 		double orientation);
 
+	const Space::Vector2D* GetMinVertex()
+	{
+		return m_min;
+	}
+
+	const Space::Vector2D* GetMaxVertex()
+	{
+		return m_max;
+	}
+
 private:
 
 	/** A set of vectors centered at the origin with 
@@ -77,8 +87,8 @@ private:
 
 	/** Use these for a bounding box collision pre-check (set them
 		up during construction) **/
-	Space::Point2D<double> m_min;
-	Space::Point2D<double> m_max;
+	Space::Vector2D* m_min;
+	Space::Vector2D* m_max;
 
 	typedef std::pair<Space::Vector2D, Space::Vector2D> Edge;
 
@@ -105,6 +115,14 @@ private:
 	void Rotate(double theta);
 
 	bool IsConvex() const;
+
+	void IdentifyMinMax();
+
+	static bool OverlapPossible(CollisionPolygon* first, 
+		CollisionPolygon* second, 
+		Space::Vector2D* firstVel,
+		Space::Vector2D* secondVel,
+		const Space::Point2D<double>& offset);
 };
 
 }
