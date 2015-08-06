@@ -119,12 +119,14 @@ void SpaceSim::Render()
 	m_pUniverse->Render();
 	m_pGraphics->SpriteEnd();
 
+	/* Line drawing test (it worked)
 	m_pGraphics->PolygonBegin();
 	DrawableLine line = DrawableLine();
 	line.Initialize(m_pGraphics);
 	line.SetVertices(Point2D<float>(0, 0), Point2D<float>(400, 400));
 	line.Draw();
 	m_pGraphics->PolygonEnd();
+	*/
 }
 
 //=============================================================================

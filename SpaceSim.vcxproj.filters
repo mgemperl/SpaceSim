@@ -124,14 +124,17 @@
     <ClInclude Include="Source\DefinitionManager.h">
       <Filter>Game\Management</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SpaceSim.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Source\DrawableLine.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Source\DrawablePolygon.h">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Text.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SpaceSim.h">
+      <Filter>Game\Management</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +179,9 @@
     </Filter>
     <Filter Include="Game\Entites\Abstract">
       <UniqueIdentifier>{279cad60-4464-4581-95b4-b2224aa31249}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{24541c8e-abb8-4baf-baa6-a1547069710e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -330,14 +336,17 @@
     <ClCompile Include="Source\DefinitionManager.cpp">
       <Filter>Game\Management</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SpaceSim.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Source\DrawableLine.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Source\DrawablePolygon.cpp">
       <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Text.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SpaceSim.cpp">
+      <Filter>Game\Management</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

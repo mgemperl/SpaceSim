@@ -23,5 +23,5 @@ bool DrawableLine::Initialize(Graphics* pGraphics, int width)
 
 void DrawableLine::Draw(COLOR_ARGB color)
 {
-	m_pGraphics->DrawPolygon(m_vertices, color);
+	m_pGraphics->DrawPolygon(m_vertices, m_width, color);
 }

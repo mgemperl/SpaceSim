@@ -50,6 +50,10 @@
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(DXSDK_DIR)Lib\x86;$(DXSDK_DIR);$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(DXSDK_DIR);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -127,6 +131,7 @@
     <ClInclude Include="Source\State.h" />
     <ClInclude Include="Source\StateMachine.h" />
     <ClInclude Include="Source\System.h" />
+    <ClInclude Include="Source\Text.h" />
     <ClInclude Include="Source\TextureManager.h" />
     <ClInclude Include="Source\TurretStates.h" />
     <ClInclude Include="Source\Universe.h" />
@@ -186,6 +191,7 @@
     <ClCompile Include="Source\ShipAI.cpp" />
     <ClCompile Include="Source\SpaceSim.cpp" />
     <ClCompile Include="Source\System.cpp" />
+    <ClCompile Include="Source\Text.cpp" />
     <ClCompile Include="Source\TextureManager.cpp" />
     <ClCompile Include="Source\TurretStates.cpp" />
     <ClCompile Include="Source\Universe.cpp" />

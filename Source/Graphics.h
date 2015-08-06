@@ -20,7 +20,12 @@
 // Color defines
 #define COLOR_ARGB DWORD
 #define SETCOLOR_ARGB(a,r,g,b) \
-    ((COLOR_ARGB)((((a)&0xff)<<24)|(((r)&0xff)<<16)|(((g)&0xff)<<8)|((b)&0xff)))
+    ((COLOR_ARGB)((((a)&0xff)<<24)|(((r)&0xff)<<16)| \
+	(((g)&0xff)<<8)|((b)&0xff)))
+
+// D3DFVF_XYZRHW - vertices are transformed
+// D3DFVF_DIFFUSE - The verticies contain diffuse color data
+#define D3DFVF_VERTEX (D3DFVF_XYZRHW | D3DFVF_DIFFUSE)
 
 // Colors
 const COLOR_ARGB WHITE = D3DCOLOR_ARGB(255, 255, 255, 255);
@@ -29,6 +34,7 @@ const COLOR_ARGB ALPHA25 = D3DCOLOR_ARGB(64, 255, 255, 255);
 const COLOR_ARGB ALPHA50 = D3DCOLOR_ARGB(128, 255, 255, 255);
 
 struct SpriteData;
+struct VertexC;
 class TextureManager;
 
 class Graphics
@@ -50,11 +56,14 @@ private:
     int         m_Height;
     COLOR_ARGB  m_BackColor;      // background color
 
-	std::unordered_map<const char*, TextureManager*> m_textures;
+	std::unordered_map<std::string, TextureManager*> m_textures;
 
     // (For internal engine use only. No user serviceable parts inside.)
     // Initialize D3D presentation parameters
     void InitD3Dpp();
+
+	HRESULT CreateVertexBuffer(VertexC vertices[], UINT size,
+		LPDIRECT3DVERTEXBUFFER9 vertexBuffer);
 
 public:
     // Constructor
@@ -87,6 +96,8 @@ public:
 
 	void OnResetDevice();
 
+	LP_SPRITE GetSprite() { return m_pSprite; }
+
 	//=====================================================================
 	// Load texture into D3D memory. For internal engine use only.
 	// Use TextureManager class load game textures.
@@ -108,7 +119,11 @@ public:
 	//=====================================================================
 	void DrawSprite(const SpriteData& data, COLOR_ARGB color);
 
-	void DrawPolygon(const std::vector<Space::Point2D<float>>& vertices, COLOR_ARGB color);
+	void DrawPolygon(const std::vector<Space::Point2D<float>>& vertices, 
+		int width, COLOR_ARGB color);
+
+	void FillPolygon(const std::vector<Space::Point2D<float>>& vertices,
+		COLOR_ARGB color);
 
     // Display the offscreen backbuffer to the screen.
     HRESULT ShowBackbuffer();
@@ -193,18 +208,27 @@ public:
 	}
 };
 
+// Data needed to draw a sprite to the screen
 struct SpriteData
 {
 	int width;
 	int height;
-	float x;
+	float x;				// Screen location of sprite
 	float y;
 	float scale;
 	float angle;			// Angle in radians
-	RECT rect;
+	RECT rect;				// used to select from larger texture
 	LP_TEXTURE texture;
 	bool flipHorizontal;
 	bool flipVertical;
+};
+
+// Vertex struct for drawing Direct3D primitives 
+struct VertexC
+{
+	float x, y, z;			// Vertex location
+	float rhw;				// reciprocol homogeneous W (set to 1)
+	unsigned long color;	// vertex color
 };
 
 #endif

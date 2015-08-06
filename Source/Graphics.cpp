@@ -83,13 +83,17 @@ void Graphics::Initialize(HWND hw, int w, int h, bool full)
         &m_d3dpp, 
         &m_Device3D);
 
-    if (FAILED(m_Result))
-		throw GameException(GameExceptionNS::FATAL_ERROR, "Error creating Direct3D device");
+	if (FAILED(m_Result))
+	{
+		throw GameException(GameExceptionNS::FATAL_ERROR,
+			"Error creating Direct3D device");
+	}
  
 	m_Result = D3DXCreateSprite(m_Device3D, &m_pSprite);
 	if (FAILED(m_Result))
 	{
-		throw GameException(GameExceptionNS::FATAL_ERROR, "Error creating Direct3D sprite");
+		throw GameException(GameExceptionNS::FATAL_ERROR, 
+			"Error creating Direct3D sprite");
 	}
 
 	m_Result = D3DXCreateLine(m_Device3D, &m_pPolygon);
@@ -99,7 +103,6 @@ void Graphics::Initialize(HWND hw, int w, int h, bool full)
 		throw GameException(GameExceptionNS::FATAL_ERROR,
 			"Error creating Direct3D line");
 	}
-		
 }
 
 void Graphics::SaveTexture(const char* textureName, TextureManager* pTexture)
@@ -120,7 +123,7 @@ TextureManager* Graphics::RetrieveTexture(const char* texture)
 
 void Graphics::ReleaseSavedTextures()
 {
-	for (std::pair<const char*, TextureManager*> texture : m_textures)
+	for (std::pair<std::string, TextureManager*> texture : m_textures)
 	{
 		delete texture.second;
 	}
@@ -130,7 +133,7 @@ void Graphics::ReleaseSavedTextures()
 
 void Graphics::OnLostDevice()
 {
-	for (std::pair<const char*, TextureManager*> texture : m_textures)
+	for (std::pair<std::string, TextureManager*> texture : m_textures)
 	{
 		texture.second->OnLostDevice();
 	}
@@ -138,7 +141,7 @@ void Graphics::OnLostDevice()
 
 void Graphics::OnResetDevice()
 {
-	for (std::pair<const char*, TextureManager*> texture : m_textures)
+	for (std::pair<std::string, TextureManager*> texture : m_textures)
 	{
 		texture.second->OnResetDevice();
 	}
@@ -242,7 +245,7 @@ void Graphics::DrawSprite(const SpriteData& data, COLOR_ARGB color)
 }
 
 void Graphics::DrawPolygon(const std::vector<Point2D<float>>& vertices,
-	COLOR_ARGB color)
+	int width, COLOR_ARGB color)
 {
 	// WARNING: Crazy C-style stuff ahead
 	D3DXVECTOR2* pVertices = (D3DXVECTOR2*)malloc(
@@ -255,9 +258,40 @@ void Graphics::DrawPolygon(const std::vector<Point2D<float>>& vertices,
 	}
 	pVertex = NULL;
 
+	m_pPolygon->SetWidth(width);
 	m_pPolygon->Draw(pVertices, vertices.size(), color);
-
+	
 	free(pVertices);
+}
+
+void Graphics::FillPolygon(const std::vector<Point2D<float>>& vertices,
+	COLOR_ARGB color)
+{
+
+}
+
+HRESULT Graphics::CreateVertexBuffer(VertexC vertices[], UINT size,
+	LPDIRECT3DVERTEXBUFFER9 vertexBuffer)
+{
+	HRESULT hr = E_FAIL;
+
+	hr = m_Device3D->CreateVertexBuffer(size, D3DUSAGE_WRITEONLY,
+		D3DFVF_VERTEX, D3DPOOL_DEFAULT, &vertexBuffer, NULL);
+
+	if (FAILED(hr))
+	{
+		return hr;
+	}
+
+	void* pBuf;
+	hr = vertexBuffer->Lock(0, size, (void**)&pBuf, 0);
+
+	if (FAILED(hr))
+	{
+		return hr;
+	}
+
+	memcpy(pBuf, vertices, size);
 }
 
 //=============================================================================

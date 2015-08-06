@@ -40,6 +40,7 @@ public:
 
 	void SetGameState(StateType state);
 
+	/** Must be called between Sprite begin and end methods **/
 	void Render();
 
 private:
