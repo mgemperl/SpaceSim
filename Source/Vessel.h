@@ -98,7 +98,6 @@ public:
 	bool MoveToward(const Entity* entity);
 	bool MoveToward(const Space::Point2D<double>& dest);
 	bool MoveToward(double theta);
-	bool MoveToward(double theta, double sqrDist);
 
 	void Render(float interp, Space::Point2D<double>& offset) override;
 

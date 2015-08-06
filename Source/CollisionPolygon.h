@@ -118,10 +118,10 @@ private:
 
 	void IdentifyMinMax();
 
-	static bool OverlapPossible(CollisionPolygon* first, 
-		CollisionPolygon* second, 
-		Space::Vector2D* firstVel,
-		Space::Vector2D* secondVel,
+	static bool OverlapPossible(const CollisionPolygon& first, 
+		const CollisionPolygon& second, 
+		const Space::Vector2D& firstVel,
+		const Space::Vector2D& secondVel,
 		const Space::Point2D<double>& offset);
 };
 

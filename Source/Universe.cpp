@@ -49,9 +49,9 @@ void Universe::Initialize(Graphics* pGraphics, Input* pInput)
 	WeapDef turret = WeapDef("weapon", 10, SMALL, false, 50, 10, 10, 30);
 	WeapDef guided = WeapDef("guided", 10, SMALL, true, 25, 10, 10, 360);
 
-	playerVessel->InstallWeapon(weapon, 0);
+	playerVessel->InstallWeapon(guided, 0);
 	//playerVessel->InstallWeapon(guided, 1);
-	playerVessel->InstallWeapon(weapon, 1);
+	playerVessel->InstallWeapon(guided, 1);
 	//playerVessel->InstallWeapon(guided, 3);
 
 
@@ -64,7 +64,7 @@ void Universe::Initialize(Graphics* pGraphics, Input* pInput)
 //	ShipAI* friend1 = new ShipAI(friendDef, playerFleet);
 
 	enemy->SetOrder(SEARCHANDDESTROY);
-	enemyVessel->InstallWeapon(weapon, 0);
+	enemyVessel->InstallWeapon(guided, 0);
 
 //	friend1->SetOrder(SEARCHANDDESTROY);
 //	friend1->InstallWeapon(weapon, 0);

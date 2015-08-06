@@ -87,18 +87,13 @@ void Entity::Update(double deltaT)
 
 bool Entity::CanCollide(const Entity* other) const
 {
-	// Maybe override in children to check if it's hostile or whatever
+	// If I ever implement a grid system for sectors, this method should
+	// use it to see if collision is possible.
 
-	if (GetPos().Distance(other->GetPos()) <= sqrt(
-		m_pPolygon->GetMaxVertex()->GetSqrMagnitude() +
-		other->m_pPolygon->GetMaxVertex()->GetSqrMagnitude()))
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	// Could also override in children to check if the other entit is hostile or
+	// something.
+
+	return true;
 }
 
 bool Entity::IsHostile(const Entity* entity) const

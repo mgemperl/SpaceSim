@@ -87,14 +87,19 @@ bool CollisionPolygon::DetectCollision(
 {
 	bool collision = false;
 
-	CollisionPolygon firstSwept = CollisionPolygon(firstPoly);
-	CollisionPolygon secondSwept = CollisionPolygon(secondPoly);
+	if (OverlapPossible(firstPoly, secondPoly, firstVelocity, secondVelocity, offset))
+	{
+		CollisionPolygon firstSwept = CollisionPolygon(firstPoly);
+		CollisionPolygon secondSwept = CollisionPolygon(secondPoly);
 
-	SweepPolygon(firstSwept, firstVelocity, Point2D<double>(0, 0), firstOrient);
-	SweepPolygon(secondSwept, secondVelocity, offset, secondOrient);
+		SweepPolygon(firstSwept, firstVelocity, Point2D<double>(0, 0), firstOrient);
+		SweepPolygon(secondSwept, secondVelocity, offset, secondOrient);
 
-	return DetectOverlap(firstSwept, secondSwept, offset) &&
-		DetectOverlap(secondSwept, firstSwept, -offset);
+		collision = DetectOverlap(firstSwept, secondSwept, offset) &&
+			DetectOverlap(secondSwept, firstSwept, -offset);
+	}
+
+	return collision;
 }
 
 bool CollisionPolygon::DetectOverlap(
@@ -294,16 +299,20 @@ bool CollisionPolygon::IsConvex() const
 	return true;
 }
 
-bool CollisionPolygon::OverlapPossible(CollisionPolygon* first, 
-	CollisionPolygon* second, 
-	Vector2D* firstVel,
-	Vector2D* secondVel,
+bool CollisionPolygon::OverlapPossible(const CollisionPolygon& first, 
+	const CollisionPolygon& second, 
+	const Vector2D& firstVel,
+	const Vector2D& secondVel,
 	const Point2D<double>& offset) 
 {
 	// TODO: Make it take velocity into account. Also, get rid of the other overlap possiblity checker in I forget where.
-	return first->m_max->GetMagnitude() + 
-		second->m_max->GetMagnitude() <=
-		std::fmin(offset.GetX(), offset.GetY());
+
+	Vector2D velocitySum = firstVel - secondVel;
+
+	return first.m_max->GetMagnitude() + 
+		second.m_max->GetMagnitude() +
+		velocitySum.GetMagnitude() >=
+		offset.Distance();
 }
 
 }

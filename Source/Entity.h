@@ -193,6 +193,8 @@ public:
 	virtual void ConstUpdate() = 0; 
 
 	// Check for collisions with other entities
+	// Not currently used, as projectiles check for collision
+	// using code in the Damager interface
 	virtual void CollisionUpdate() {};
 
 	// Non-Constant update for this entity

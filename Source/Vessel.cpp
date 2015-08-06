@@ -626,42 +626,19 @@ bool Vessel::MoveToward(const Entity* entity)
 
 bool Vessel::MoveToward(const Space::Point2D<double>& dest)
 {
-	return MoveToward(Space::Vector2D::ComputeAngle(GetPos(), dest),
-		GetPos().SqrDistance(dest));
+	return MoveToward(Space::Vector2D::ComputeAngle(GetPos(), dest));
 }
 
 bool Vessel::MoveToward(double theta)
 {
-	double dir = theta + QUARTER_PI * sin(Vector2D::SimplifyAngle(
-		theta - GetVelocity().GetAngle()));
+	double diff = Vector2D::AngleDiff(GetVelocity().GetAngle(), theta);
+	double sign = diff > 0 ? 1.0 : -1.0;
+	double dir = theta + QUARTER_PI * sign * std::pow((std::abs(diff) / PI), 0.3);
 
 	TurnTo(dir);
 
 	// If the vessel is facing the target's general direction, accelerate.
 	if (abs(Vector2D::AngleDiff(GetOrientationRad(), dir))) 
-	{
-		DoAction(ACCEL);
-	}
-	else
-	{
-		StopAction(ACCEL);
-	}
-
-	return (MovingToward(theta));
-}
-
-bool Vessel::MoveToward(double theta, double sqrDist)
-{
-	double diff = Vector2D::AngleDiff(GetVelocity().GetAngle(), theta);
-	double sign = diff > 0 ? 1.0 : -1.0;
-	double dir = theta + QUARTER_PI * sign * std::pow((std::abs(diff) / PI), 0.2);
-	//double add = (/*sign **/ (diff / PI) * QUARTER_PI / std::fmin(1.0, std::log(sqrDist) * 4));
-	//dir += add;
-
-	TurnTo(dir);
-
-	// If the vessel is facing the m_pTarget's general direction, accelerate.
-	if (abs(Vector2D::AngleDiff(GetOrientationRad(), dir)) < HALF_PI)
 	{
 		DoAction(ACCEL);
 	}
