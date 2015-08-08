@@ -50,6 +50,8 @@ public:
 
 	std::vector<const WeaponSlot*> GetWeapons() const;
 
+	VesselController* GetController() const { return m_pController; }
+
 	// Modifiers
 
 	bool InstallWeapon(WeapDef weapon, int slot);

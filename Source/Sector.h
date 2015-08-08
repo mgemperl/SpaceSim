@@ -38,6 +38,9 @@ public:
 
 	System* GetSystem() { return m_pSystem; }
 
+	/** Returns the radius of the sector **/
+	double GetRadius() { return m_dRadius; }
+
 	void Update(double deltaT);
 
 	void ConstUpdate();
@@ -78,6 +81,7 @@ private:
 	std::set<Fleet*> m_fleets;
 	Entity::EntitySet m_occupants;
 	Background* m_pBackground;
+	double m_dRadius;
 
 	std::set<Entity*> m_toDelete;
 	std::set<Entity*> m_toRemove;

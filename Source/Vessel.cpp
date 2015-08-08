@@ -633,7 +633,7 @@ bool Vessel::MoveToward(double theta)
 {
 	double diff = Vector2D::AngleDiff(GetVelocity().GetAngle(), theta);
 	double sign = diff > 0 ? 1.0 : -1.0;
-	double dir = theta + QUARTER_PI * sign * std::pow((std::abs(diff) / PI), 0.3);
+	double dir = theta + QUARTER_PI * sign * std::pow((std::abs(diff) / PI), 0.2);
 
 	TurnTo(dir);
 

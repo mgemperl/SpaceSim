@@ -18,6 +18,8 @@ public:
 
 	virtual T* GetEntity() { return m_pEntity; }
 
+	virtual void SetOrder(int command) = 0;
+
 	virtual void Unassign()
 	{
 		m_pEntity = NULL;

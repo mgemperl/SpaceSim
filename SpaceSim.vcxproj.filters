@@ -136,6 +136,9 @@
     <ClInclude Include="Source\SpaceSim.h">
       <Filter>Game\Management</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FleetController.h">
+      <Filter>Game\Controllers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
@@ -347,6 +350,9 @@
     </ClCompile>
     <ClCompile Include="Source\SpaceSim.cpp">
       <Filter>Game\Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FleetController.cpp">
+      <Filter>Game\Controllers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

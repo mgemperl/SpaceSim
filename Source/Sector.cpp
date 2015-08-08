@@ -25,6 +25,7 @@ Sector::Sector(System* pSystem, Graphics* pGraphics)
 	m_pBackground = new Background();
 	m_pBackground->InitializeDrawable(pGraphics);
 	LoadCelestialBodies(pSystem->GetBodies());
+	m_dRadius = 500;
 }
 
 Sector::~Sector()
@@ -49,6 +50,19 @@ const Entity::ConstEntitySet Sector::Occupants() const
 
 void Sector::Update(double deltaT)
 {
+	// Update fleets
+	for (Fleet* pFleet : m_fleets)
+	{
+		if (pFleet == NULL)
+		{
+			throw GameException(GameExceptionNS::FATAL_ERROR,
+				"Sector has a NULL fleet");
+		}
+
+		pFleet->Update(deltaT);
+	}
+
+	// Update entities
 	for (Entity* pEntity : m_occupants)
 	{
 		if (pEntity == NULL)
@@ -89,6 +103,8 @@ void Sector::HandleCollisions()
 		pEntity->CollisionUpdate();
 	}
 }
+
+
 
 void Sector::AddEntity(Entity* entity)
 {
@@ -143,10 +159,16 @@ bool Sector::ContainsEntity(const Entity* entity)
 
 void Sector::AddFleets(std::vector<Fleet*>& fleets)
 {
+	double rotation = TWO_PI / fleets.size();
+	double angle = 0;
+
 	for (int itr = 0; itr < fleets.size(); itr++)
 	{
+		fleets[itr]->EnterSector(this, angle);
+		angle += rotation;
+
+		/*
 		Point2D<double> fleetCenter = Point2D<double>(100, 100);
-			//Space::Vector2D::GetTerminalFromPolar(PI * itr, SECTOR_RADIUS);
 
 		std::priority_queue<VesselController*> battleworthy = 
 			fleets[itr]->GetBattleworthy();
@@ -161,6 +183,7 @@ void Sector::AddFleets(std::vector<Fleet*>& fleets)
 			fleetCenter += Point2D<double>(0, 30);
 			AddEntity(pVessel);
 		}
+		*/
 
 		m_fleets.emplace(fleets[itr]);
 	}

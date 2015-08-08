@@ -45,7 +45,7 @@ void ShipAI::SetFleet(Fleet* pFleet)
 	m_pFleet = pFleet;
 }
 
-void ShipAI::SetOrder(StateType inOrder)
+void ShipAI::SetOrder(int inOrder)
 {
 	switch (inOrder)
 	{

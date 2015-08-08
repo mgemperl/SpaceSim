@@ -18,6 +18,8 @@ public:
 
 	void Update(double deltaT) override;
 
+	void SetOrder(int command) override {}
+
 private:
 
 	StateMachine<GuidedProjectileAI>* m_pAIStateMachine;

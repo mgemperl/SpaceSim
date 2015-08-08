@@ -10,6 +10,7 @@
 #include "GameState.h"
 #include "Fleet.h"
 #include "CelestialBody.h"
+#include "FleetController.h"
 #include "DefinitionManager.h"
 #include "Data.h"
 
@@ -41,6 +42,8 @@ void Universe::Initialize(Graphics* pGraphics, Input* pInput)
 	Vessel* playerVessel = new Vessel("Destroyer of Worlds", PLAYERFACTION, m_pPlayer);
 	Fleet* playerFleet = m_pPlayer->GetFleet();
 
+	playerFleet->SetController(new FleetController());
+
 	testSystem->AddFleet(playerFleet);
 
 	CelestialBody* planet = new CelestialBody(5, testSystem, 0, 0);
@@ -49,25 +52,25 @@ void Universe::Initialize(Graphics* pGraphics, Input* pInput)
 	WeapDef turret = WeapDef("weapon", 10, SMALL, false, 50, 10, 10, 30);
 	WeapDef guided = WeapDef("guided", 10, SMALL, true, 25, 10, 10, 360);
 
-	playerVessel->InstallWeapon(guided, 0);
+	playerVessel->InstallWeapon(weapon, 0);
 	//playerVessel->InstallWeapon(guided, 1);
-	playerVessel->InstallWeapon(guided, 1);
+	playerVessel->InstallWeapon(weapon, 1);
 	//playerVessel->InstallWeapon(guided, 3);
 
 
 	Fleet* pirateFleet = new Fleet(ENEMYFACTION, testSystem);
+	pirateFleet->SetController(new FleetController());
 	testSystem->AddFleet(pirateFleet);
 
 	ShipAI* enemy = new ShipAI(pirateFleet);
 	Vessel* enemyVessel = new Vessel("enemy", ENEMYFACTION, enemy);
 
-//	ShipAI* friend1 = new ShipAI(friendDef, playerFleet);
+	ShipAI* friendly = new ShipAI(playerFleet);
+	Vessel* friendVessel = new Vessel("friend", PLAYERFACTION, friendly);
 
-	enemy->SetOrder(SEARCHANDDESTROY);
-	enemyVessel->InstallWeapon(guided, 0);
+	enemyVessel->InstallWeapon(weapon, 0);
 
-//	friend1->SetOrder(SEARCHANDDESTROY);
-//	friend1->InstallWeapon(weapon, 0);
+	friendVessel->InstallWeapon(weapon, 0);
 
 	testSystem->AddFleet(playerFleet);
 

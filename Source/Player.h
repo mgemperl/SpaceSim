@@ -34,6 +34,8 @@ public:
 
 	void SetVessel(Vessel* pVessel);
 
+	void SetOrder(int command) override {}
+
 private:
 
 	Vessel* m_pPlayerVessel;

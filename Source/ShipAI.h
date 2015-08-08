@@ -26,7 +26,7 @@ public:
 
 	void UpdateActions() override;
 
-	virtual void SetOrder(StateType order);
+	virtual void SetOrder(int order) override;
 
 	virtual void HandleMessage(const Telegram& message) override;
 

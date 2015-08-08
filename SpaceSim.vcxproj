@@ -112,6 +112,7 @@
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\Fleet.h" />
+    <ClInclude Include="Source\FleetController.h" />
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\GameException.h" />
     <ClInclude Include="Source\GameState.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\Fleet.cpp" />
+    <ClCompile Include="Source\FleetController.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\GameState.cpp" />
     <ClCompile Include="Source\Graphics.cpp" />
